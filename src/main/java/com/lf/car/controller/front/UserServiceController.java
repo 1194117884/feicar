@@ -1,17 +1,27 @@
 package com.lf.car.controller.front;
 
+import com.lf.car.controller.requs.FindInquiriesArgs;
+import com.lf.car.controller.requs.FindReservesArgs;
 import com.lf.car.controller.requs.LoginUserBody;
 import com.lf.car.controller.requs.RegisterUserBody;
 import com.lf.car.controller.resps.BaseResponse;
 import com.lf.car.controller.resps.LoginInfo;
+import com.lf.car.entity.InquiryPriceRecord;
+import com.lf.car.entity.ReserveDriveRecord;
 import com.lf.car.entity.User;
 import com.lf.car.exception.CarException;
 import com.lf.car.exception.ErrorCode;
+import com.lf.car.service.InquiryPriceRecordService;
+import com.lf.car.service.ReserveDriveRecordService;
 import com.lf.car.service.UserService;
+import com.lf.car.service.UserTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/usc")
@@ -21,6 +31,12 @@ public class UserServiceController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserTokenService userTokenService;
+    @Autowired
+    private InquiryPriceRecordService inquiryPriceRecordService;
+    @Autowired
+    private ReserveDriveRecordService reserveDriveRecordService;
 
     @ResponseBody
     @GetMapping("/{id}")
@@ -63,6 +79,37 @@ public class UserServiceController {
             return BaseResponse.fail(e.getErrorCode());
         } catch (Exception e) {
             logger.error("登陆用户", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/reserve/list")
+    public BaseResponse findReserves(HttpServletRequest request, @RequestBody(required = false) FindReservesArgs args) {
+        try {
+            User user = userTokenService.validToken(request);
+            List<ReserveDriveRecord> records = reserveDriveRecordService.findUserReserveRecords(user.getId(), args);
+            return BaseResponse.success(records);
+        } catch (CarException e) {
+            logger.error("查询用户的试驾记录", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("查询用户的试驾记录", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+    @ResponseBody
+    @PostMapping("/inquiry/list")
+    public BaseResponse findInquiries(HttpServletRequest request, @RequestBody(required = false) FindInquiriesArgs args) {
+        try {
+            User user = userTokenService.validToken(request);
+            List<InquiryPriceRecord> records = inquiryPriceRecordService.findUserInquiryRecords(user.getId(), args);
+            return BaseResponse.success(records);
+        } catch (CarException e) {
+            logger.error("查询用户的询价记录", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("查询用户的询价记录", e);
             return BaseResponse.fail(ErrorCode.SYS_ERROR);
         }
     }

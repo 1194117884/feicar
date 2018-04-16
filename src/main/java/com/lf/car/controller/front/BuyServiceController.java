@@ -3,18 +3,16 @@ package com.lf.car.controller.front;
 import com.lf.car.controller.requs.FindCarModelArgs;
 import com.lf.car.controller.requs.FindCarSeriesArgs;
 import com.lf.car.controller.resps.BaseResponse;
-import com.lf.car.entity.CarModel;
-import com.lf.car.entity.CarSeries;
+import com.lf.car.entity.*;
 import com.lf.car.exception.CarException;
 import com.lf.car.exception.ErrorCode;
-import com.lf.car.service.CarModelService;
-import com.lf.car.service.CarSeriesService;
-import com.lf.car.service.HotSliderService;
+import com.lf.car.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -29,6 +27,12 @@ public class BuyServiceController {
     private HotSliderService hotSliderService;
     @Autowired
     private CarModelService carModelService;
+    @Autowired
+    private UserTokenService userTokenService;
+    @Autowired
+    private InquiryPriceRecordService inquiryPriceRecordService;
+    @Autowired
+    private ReserveDriveRecordService reserveDriveRecordService;
 
     @ResponseBody
     @RequestMapping("/hot_slider")
@@ -86,6 +90,66 @@ public class BuyServiceController {
             return BaseResponse.fail(e.getErrorCode());
         } catch (Exception e) {
             logger.error("查找车型信息", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+
+
+    @ResponseBody
+    @GetMapping("/car_link")
+    public BaseResponse findCarLink() {
+        try {
+            List<CarSeries> series = carSeriesService.findCarSeriesWithModel();
+            return BaseResponse.success(series);
+        } catch (CarException e) {
+            logger.error("查找车折叠列表", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("查找车折叠列表", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/reserve")
+    public BaseResponse reserveDrive(HttpServletRequest request, @RequestBody(required = false) ReserveDriveRecord record) {
+        try {
+            try{
+                User user = userTokenService.validToken(request);
+                record.setUserId(user.getId());
+            }catch (Exception e){
+                   logger.info("登陆消息失效，盲人预约");
+            } finally {
+                reserveDriveRecordService.reserveOneDrive(record);
+            }
+            return BaseResponse.success();
+        } catch (CarException e) {
+            logger.error("发起一次试驾", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("发起一次试驾", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/inquiry")
+    public BaseResponse inquiryPrice(HttpServletRequest request, @RequestBody(required = false) InquiryPriceRecord record) {
+        try {
+            try{
+                User user = userTokenService.validToken(request);
+                record.setUserId(user.getId());
+            }catch (Exception e){
+                   logger.info("登陆消息失效，盲人询价");
+            } finally {
+                inquiryPriceRecordService.inquiryOnePrice(record);
+            }
+            return BaseResponse.success();
+        } catch (CarException e) {
+            logger.error("发起一次询价", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("发起一次询价", e);
             return BaseResponse.fail(ErrorCode.SYS_ERROR);
         }
     }

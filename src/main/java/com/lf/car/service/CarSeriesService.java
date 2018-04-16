@@ -5,6 +5,7 @@ import com.lf.car.controller.requs.FindCarSeriesArgs;
 import com.lf.car.entity.CarSeries;
 import com.lf.car.exception.CarException;
 import com.lf.car.exception.ErrorCode;
+import com.lf.car.repository.CarModelRepository;
 import com.lf.car.repository.CarSeriesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,8 @@ public class CarSeriesService {
 
     @Autowired
     private CarSeriesRepository carSeriesRepository;
+    @Autowired
+    private CarModelRepository carModelRepository;
 
     public CarSeries createOneCarSeries(CarSeries carSeries) {
         logger.info("保存一个车系:{}", JSONObject.toJSONString(carSeries));
@@ -108,5 +111,16 @@ public class CarSeriesService {
             }
         }, new PageRequest(pageNum - 1, pageSize, new Sort(Sort.Direction.DESC, "createTime")));
         return page.getContent();
+    }
+
+    public List<CarSeries> findCarSeriesWithModel() {
+        logger.info("查找车系，组合车型信息");
+        List<CarSeries> carSeriesList = carSeriesRepository.findByStatus(0);
+        if (carSeriesList != null){
+            for (CarSeries series : carSeriesList){
+                series.setModelList(carModelRepository.findBySeriesIdAndStatus(series.getId(), 0));
+            }
+        }
+        return carSeriesList;
     }
 }

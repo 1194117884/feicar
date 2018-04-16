@@ -1,10 +1,8 @@
 package com.lf.car.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class CarSeries {
@@ -24,6 +22,9 @@ public class CarSeries {
     @Column(columnDefinition = "int(5) comment '状态【-1=下架，0=正常】'")
     private Integer status;
     private Date createTime;
+
+    @Transient
+    private List<CarModel> modelList;
 
     public Long getId() {
         return id;
@@ -79,5 +80,13 @@ public class CarSeries {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<CarModel> getModelList() {
+        return modelList;
+    }
+
+    public void setModelList(List<CarModel> modelList) {
+        this.modelList = modelList;
     }
 }
