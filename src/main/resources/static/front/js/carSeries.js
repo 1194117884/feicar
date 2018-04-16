@@ -98,7 +98,7 @@ function getCarSeries(pageNum) {
                 var htmlText = '';
                 $.each(data.data, function (i, v) {
                     htmlText += '<li class="cs_content_list_li">';
-                    htmlText += '<a class="iconfont cs_content_list_li_a" onclick="goCarList(\'' + v.id + '\')">';
+                    htmlText += '<a class="iconfont cs_content_list_li_a" style="padding: 10px;" onclick="goCarList(\'' + v.id + '\')">';
                     htmlText += '<img class="cs_content_list_li_a_img" src="' + v.mainPic + '"/>';
                     htmlText += '<span class="cs_content_list_li_a_text">' + v.name + '</span>';
                     htmlText += '<span class="cs_content_list_li_a_ico">&#xe68b;</span>';

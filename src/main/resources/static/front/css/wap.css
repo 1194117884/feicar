@@ -168,7 +168,7 @@ ul, li {
     border-top-color: #ddd;
     border-top-style: solid;
     position: fixed;
-    height: 45px;
+    height: 55px;
     width: 100%;
     bottom: 0px;
     left: 0;
@@ -185,11 +185,13 @@ ul, li {
 .pet_bottom_nav_list {
     max-width: 100%;
     overflow: hidden;
+    height: 100%;
 }
 
 .pet_bottom_nav_list li {
     width: 33.3333333%;
     float: left;
+    height: 100%;
 }
 
 .pet_bottom_nav_list li a:hover {
@@ -210,6 +212,8 @@ ul, li {
     display: block;
     margin: 0 auto;
     text-align: center;
+    height: 100%;
+    padding-top: 5px;
     font-size: 15px;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -222,6 +226,8 @@ ul, li {
     display: block;
     margin: 0 auto;
     text-align: center;
+    height: 100%;
+    padding-top: 5px;
     font-size: 15px;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
@@ -2310,7 +2316,8 @@ ul, li {
 
 .cs_content_list_li_a_ico {
     float: right;
-    margin-top: 20px;
+    line-height: 80px;
+    height: 80px;
     font-size: 20px;
     color: #dd514c;
 }
