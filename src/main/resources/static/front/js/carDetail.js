@@ -12,7 +12,7 @@ $(function () {
 
 
     //获取车型信息
-    getCarModel(getModelId());
+    // getCarModel(getModelId());
 });
 
 function auto_resize() {
