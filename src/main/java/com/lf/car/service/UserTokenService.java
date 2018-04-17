@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.Date;
 
 @Service
@@ -88,5 +89,17 @@ public class UserTokenService {
             userToken.setCreateTime(new Date());
         }
         return userTokenRepository.saveAndFlush(userToken);
+    }
+
+    @Transactional
+    public void deleteToken(HttpServletRequest request) {
+        logger.info("退出登陆");
+        if (request == null)
+            throw new CarException(ErrorCode.PARAM_ERROR);
+        //获取token
+        String token = getTokenFromCookie(request);
+        if (!StringUtils.isEmpty(token)){
+            userTokenRepository.deleteByToken(token);
+        }
     }
 }

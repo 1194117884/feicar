@@ -96,28 +96,33 @@ function getCarModels(pageNum) {
         error: function (error, status) {
             loadingAction('close');
         },
-        success: function (data, status) {
-            if (data.code == 0) {
+        success: function (dd, status) {
+            if (dd.code == 0) {
                 loadingAction('close');
                 var htmlText = '';
-                $.each(data.data, function (i, v) {
-                    htmlText += '<li class="cm_content_list_li">' +
-                        '<a class="iconfont cm_content_list_li_a" onclick="goCarDetail(' + v.id + ')">' +
-                        '<div style="float: left; width: 90%">' +
-                        '<div>' + v.name + '</div>' +
-                        '<div class="am-g" style="font-size: 12px;color:#333333;margin-top: 25px;">' +
-                        '<div class="am-u-sm-4" style="padding-left: 0px;">指导价:' + (v.guidePrice / 10000) + '万</div>' +
-                        '<div class="am-u-sm-4">' + (v.policyPrice == null ? '' : '补贴价:' + (v.policyPrice / 10000) + '万') + '</div>' +
-                        '<div class="am-u-sm-4">库存量:' + v.inventory + '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '<span class="cm_content_list_li_a_ico">&#xe68b;</span>' +
-                        '</a>' +
-                        '</li>';
-                });
+                if (dd.data == null || dd.data == undefined || dd.data.length < 1){
+                    htmlText += '<li style="height: 40px;background-color: #fff;width: 100%;line-height: 40px;text-align: center;">更多车型正在补录中！！！</li>';
+                } else {
+                    $.each(dd.data, function (i, v) {
+                        htmlText += '<li class="cm_content_list_li">' +
+                            '<a class="iconfont cm_content_list_li_a" onclick="goCarDetail(' + v.id + ')">' +
+                            '<div style="float: left; width: 90%">' +
+                            '<div>' + v.name + '</div>' +
+                            '<div class="am-g cm_am-g">' +
+                            '<div class="am-u-sm-4 cm_am-u-sm-4">指导价:' + (v.guidePrice / 10000) + '万</div>' +
+                            '<div class="am-u-sm-4 cm_am-u-sm-4">' + (v.policyPrice == null ? '' : '补贴价:' + (v.policyPrice / 10000) + '万') + '</div>' +
+                            '<div class="am-u-sm-4 cm_am-u-sm-4">库存量:' + v.inventory + '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<span class="cm_content_list_li_a_ico">&#xe68b;</span>' +
+                            '</a>' +
+                            '</li>';
+                    });
+                }
                 $(".am-list").append(htmlText);
+                $('.cm_content').fadeIn();
 
-                pageBeanShow(data.data.length >= _pageSize);
+                pageBeanShow(dd.data.length >= _pageSize);
             } else {
                 loadingAction('close');
             }

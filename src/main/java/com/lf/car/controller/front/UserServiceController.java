@@ -1,9 +1,6 @@
 package com.lf.car.controller.front;
 
-import com.lf.car.controller.requs.FindInquiriesArgs;
-import com.lf.car.controller.requs.FindReservesArgs;
-import com.lf.car.controller.requs.LoginUserBody;
-import com.lf.car.controller.requs.RegisterUserBody;
+import com.lf.car.controller.requs.*;
 import com.lf.car.controller.resps.BaseResponse;
 import com.lf.car.controller.resps.LoginInfo;
 import com.lf.car.entity.InquiryPriceRecord;
@@ -79,6 +76,21 @@ public class UserServiceController {
             return BaseResponse.fail(e.getErrorCode());
         } catch (Exception e) {
             logger.error("登陆用户", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/logout")
+    public BaseResponse logout(HttpServletRequest request, @RequestBody(required = false) BaseRequest args) {
+        try {
+            userTokenService.deleteToken(request);
+            return BaseResponse.success();
+        } catch (CarException e) {
+            logger.error("登出用户", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("登出用户", e);
             return BaseResponse.fail(ErrorCode.SYS_ERROR);
         }
     }

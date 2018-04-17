@@ -59,7 +59,6 @@ function goCarList(id) {
 function getPageBean(pageNum) {
     var pageBean = {
         status: 0,
-
         pageSize: _pageSize,
         pageNum: pageNum
     }
@@ -105,6 +104,7 @@ function getCarSeries(pageNum) {
                     htmlText += '</a></li>';
                 });
                 $(".am-list").append(htmlText);
+                $('.cs_content').fadeIn();
 
                 pageBeanShow(data.data.length >= _pageSize);
             } else {

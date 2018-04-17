@@ -14,6 +14,8 @@ public class CarModel {
     private Long id;
     @Column(columnDefinition = "varchar(225) comment '车型名'")
     private String name;
+    @Column(columnDefinition = "varchar(225) comment '车型主图'")
+    private String mainPic;
     @Column(columnDefinition = "bigint(16) comment '车系列ID'")
     private Long seriesId;
     @Column(columnDefinition = "int(5) comment '上市年份'")
@@ -130,5 +132,13 @@ public class CarModel {
 
     public void setFeatures(Map<String, List<CarModelFeature>> features) {
         this.features = features;
+    }
+
+    public String getMainPic() {
+        return mainPic;
+    }
+
+    public void setMainPic(String mainPic) {
+        this.mainPic = mainPic;
     }
 }

@@ -2344,6 +2344,25 @@ ul, li {
     padding: 3px 10px 3px 10px;
 }
 
+.cm_am-g{
+    display：flex;
+    justify-content: space-around;
+    font-size: 12px;
+    color:#333333;
+    margin-top: 25px;
+}
+.cm_am-u-sm-4{
+    padding-left: 0px;
+    width: auto;
+    padding-right: 1rem;
+    float: left;
+    position: relative;
+}
+
+[class*=cm_am-u-]+[class*=cm_am-u-]:last-child {
+    float: left;
+}
+
 .cm_content_list_li_a_img {
     height: 100%;
 }
@@ -2380,4 +2399,97 @@ ul, li {
 
 .am-list-page-tool-click {
     color: #dd514c;
+}
+
+
+/*车辆详情*/
+.cd_content {
+    width: 100%;
+    background: #ececec;
+}
+
+.cd_detail {
+    padding: 10px;
+    background-color: #ffffff;
+}
+.cd_detail_info{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.cd_detail_info img{
+    height: 95px;
+    width: auto
+}
+.cd_detail_info div{
+    margin-left: 10px;
+    overflow: hidden;
+    font-size: 14px;
+}
+.cd_detail_info_name{
+    display: block;
+    margin-bottom: 5px;
+}
+.cd_detail_am_g {
+    text-align: center;
+    padding: 0px 10px;
+    height: 35px;
+    line-height: 35px;
+}
+.cd_detail_am_g_zixun {
+    font-size: 14px;
+    background-color: #eb8500;
+    border-radius:5px;
+    color: #fff;
+    width: 45%;
+}
+.cd_detail_am_g_shijia {
+    font-size: 14px;
+    background-color: #1bc62b;
+    border-radius:5px;
+    color: #fff;
+    width: 45%;
+}
+
+
+#cd_features {
+    margin-bottom: 10px;
+}
+.cd_features_type{
+    padding: 7px;
+    border: 1px;
+    border-color: #dedede;
+    border-style: solid;
+    background-color: #ffffff;
+    text-align: center;
+    margin: 5px 5px 0 5px;
+    border-radius: 5px;
+}
+.cd_features_list {
+    border: 1px;
+    border-color: #dedede;
+    border-style: solid;
+    background-color: #ffffff;
+    text-align: center;
+    margin: 5px 5px 0 5px;
+    border-radius: 5px;
+}
+.cd_features_type_table {
+    font-size: 10px;
+    margin: 0px;
+    border: 0px;
+}
+.cd_features_type_table_td_left {
+    border-left: 0px;
+}
+.cd_features_type_open {
+    color: #dd514c;
+}
+.cd_features_type_close {
+    color: black;
+}
+
+[class*=am-u-] {
+ padding-left: 0px;
 }
