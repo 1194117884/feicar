@@ -2008,7 +2008,7 @@ ul, li {
 
 .pet_grzx_nr {
     width: 100%;
-    padding: 40px 20px 0;
+    padding: 10px;
     overflow: hidden;
 }
 
@@ -2039,41 +2039,9 @@ ul, li {
     color: #a1a1a1;
 }
 
-.pet_grzx_num_font {
-    padding-top: 20px;
-    width: 90%;
-    color: #a1a1a1;
-    margin: 0 auto;
-    font-size: 14px;
-    text-align: center;
-}
-
-.pet_grzx_num {
-    padding-bottom: 25px;
-    overflow: hidden;
-    width: 100%;
-    padding-top: 25px;
-}
-
-.pet_grzx_num i {
-    font-size: 12px;
-    font-style: normal;
-    color: #a1a1a1;
-    display: block;
-}
-
-.pet_grzx_num span {
-    text-align: center;
-    width: 33.3333%;
-    display: block;
-    float: left;
-    color: #222;
-}
-
 .pet_grzx_list {
     width: 100%;
     border-top: 1px solid #f0f0f0;
-    padding: 20px 10px;
     overflow: hidden;
 }
 
