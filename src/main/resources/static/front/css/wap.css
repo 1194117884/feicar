@@ -2480,6 +2480,9 @@ ul, li {
     line-height: 45px;
     border-bottom: 2px solid #f0f0f0;
 }
+.grzx_list_li:hover{
+    background-color: #f0f0f0;
+}
 
 /*登陆页面*/
 .tpl-login {
@@ -3185,4 +3188,55 @@ ul, li {
 .login_vt_img {
     border: 1px solid;
     float: right;
+}
+
+/*个人信息*/
+.ui_body {
+    margin-bottom: 45px;
+}
+
+.ui_pet_content {
+    width: 100%;
+    background: #ececec;
+    padding-top: 49px;
+}
+
+.ui_pet_grzx {
+    width: 100%;
+    background: #fff;
+}
+.ui_pet_grzx_list {
+    width: 100%;
+    overflow: hidden;
+}
+.ui_divide{
+    height: 10px;
+    background-color: #ececec;
+    padding-left: 10px;
+    line-height: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.ui_list_title{
+    margin: 0px;
+    border-top: 1px solid #f0f0f0;
+}
+.ui_list_li{
+    height: 45px;
+    padding: 0 10px 0 10px;
+    line-height: 45px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.ui_head_list_title{
+    margin: 0px;
+    border-top: 1px solid #f0f0f0;
+}
+.ui_head_list_li{
+    height: 80px;
+    padding: 0 10px 0 10px;
+    line-height: 80px;
+    border-bottom: 2px solid #f0f0f0;
+}
+.ui_head_list_li:hover{
+    background-color: #f0f0f0;
 }

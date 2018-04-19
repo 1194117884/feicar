@@ -20,6 +20,8 @@ public class User {
     private String phone;
     @Column(columnDefinition = "varchar(50) comment '昵称'")
     private String nickname;
+    @Column(columnDefinition = "varchar(225) comment '头像'")
+    private String headPic;
     private Date registerTime;
     @Column(columnDefinition = "varchar(200) comment '地址$分割'")
     private String address;
@@ -99,5 +101,13 @@ public class User {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getHeadPic() {
+        return headPic;
+    }
+
+    public void setHeadPic(String headPic) {
+        this.headPic = headPic;
     }
 }

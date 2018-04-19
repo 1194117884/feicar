@@ -28,6 +28,7 @@ function getNewImage() {
     $('.login_vt_img').bind('click', getNewImage);
 }
 
+
 function getNextSendTime() {
     return localStorage.getItem('vclt');
 }
@@ -111,9 +112,13 @@ function requestLogin() {
         if (status) {
             storeUserInfo(data.data);
 
-            window.location.href = 'userCenter.html';
+            window.history.back();
         } else {
-            alert(data.msg);
+            if (data == undefined || data == null || data.msg != undefined) {
+                alert(data.msg);
+            } else {
+                alert('服务异常！');
+            }
         }
     });
 

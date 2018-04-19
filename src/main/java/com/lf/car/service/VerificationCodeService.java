@@ -40,7 +40,7 @@ public class VerificationCodeService {
         //get
         String code = getOneCode(4);
         //send
-        sendSmsCode(phone, code);//TODO:
+//        sendSmsCode(phone, code);//TODO:测试节省短信，哈哈
         //record
         saveOneCode(phone, code, type);
     }

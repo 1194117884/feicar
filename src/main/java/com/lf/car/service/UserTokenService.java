@@ -55,7 +55,9 @@ public class UserTokenService {
         if (user.getStatus() == -1)
             throw new CarException(ErrorCode.USER_FREEZE_ERROR);
 
-        return user;
+        User user1 = user;
+        user1.setPassword("(  ૢ⁼̴̤̆ ㉨ ⁼̴̤̆ ૢ)♡ 约吗？");
+        return user1;
     }
 
     private UserToken findUserToken(HttpServletRequest request) {
@@ -86,6 +88,7 @@ public class UserTokenService {
             userToken.setType(LOGIN_TOKEN_TYPE);
             userToken.setCreateTime(new Date());
         } else {
+            userToken.setToken(TokenUtil.getLoginToken());
             userToken.setCreateTime(new Date());
         }
         return userTokenRepository.saveAndFlush(userToken);

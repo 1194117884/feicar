@@ -36,10 +36,10 @@ public class UserServiceController {
     private ReserveDriveRecordService reserveDriveRecordService;
 
     @ResponseBody
-    @GetMapping("/{id}")
-    public BaseResponse findUser(@PathVariable(required = false) Long id) {
+    @GetMapping("/info")
+    public BaseResponse findUserInfo(HttpServletRequest request) {
         try {
-            User user = userService.findOneUser(id);
+            User user = userTokenService.validToken(request);
             return BaseResponse.success(user);
         } catch (CarException e) {
             logger.error("查找一个用户", e);

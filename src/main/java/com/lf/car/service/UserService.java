@@ -9,6 +9,7 @@ import com.lf.car.entity.UserToken;
 import com.lf.car.exception.CarException;
 import com.lf.car.exception.ErrorCode;
 import com.lf.car.repository.UserRepository;
+import com.lf.car.util.DateUtil;
 import com.lf.car.util.MD5Util;
 import com.lf.car.util.VerificationCodeEnum;
 import org.slf4j.Logger;
@@ -39,13 +40,17 @@ public class UserService {
 
         User user = buildUser(registerBody);
 
-        return userRepository.saveAndFlush(user);
+        User user1 = userRepository.saveAndFlush(user);
+        user1.setPassword("(  ૢ⁼̴̤̆ ㉨ ⁼̴̤̆ ૢ)♡ 约吗？");
+        return user1;
     }
 
     private User buildUser(RegisterUserBody registerBody) {
         User user = new User();
-        user.setRegisterTime(new Date());
+        Date now = new Date();
+        user.setRegisterTime(now);
         user.setPhone(registerBody.getPhone());
+        user.setNickname("用户" + DateUtil.format("yyMMddhhmm", now));
 
         switch (registerBody.getForm()) {
             case "phone":
@@ -106,6 +111,7 @@ public class UserService {
             throw new CarException(ErrorCode.USER_LOGIN_ERROR);
 
         LoginInfo loginInfo = new LoginInfo();
+        user.setPassword("(  ૢ⁼̴̤̆ ㉨ ⁼̴̤̆ ૢ)♡ 约吗？");
         loginInfo.setUser(user);
         loginInfo.setUserToken(userToken);
         return loginInfo;
@@ -177,9 +183,9 @@ public class UserService {
                 StringUtils.isEmpty(loginUserBody.getCode()))
             throw new CarException(ErrorCode.PARAM_ERROR);
 
-        User user = userRepository.findByPhone(loginUserBody.getPhone());
+        User user = userRepository.findByUsername(loginUserBody.getPhone());
         if (user == null)
-            user = userRepository.findByUsername(loginUserBody.getPhone());
+            user = userRepository.findByPhone(loginUserBody.getPhone());
 
         if (user == null) {
             boolean check = verificationCodeService.verifyCode(loginUserBody.getPhone(), VerificationCodeEnum.USER_PHONE_LOGIN_AND_REGISTER, loginUserBody.getCode());
