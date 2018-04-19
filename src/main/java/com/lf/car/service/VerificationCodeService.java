@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class VerificationCodeService {
@@ -27,16 +29,18 @@ public class VerificationCodeService {
     @Autowired
     private JuheSmsUtil juheSmsUtil;
     @Autowired
+    private VerifySendTokenService verifySendTokenService;
+    @Autowired
     private VerificationCodeRepository verificationCodeRepository;
 
-    public void sendCode(String phone, String type) {
+    public void sendCode(HttpServletRequest request, String token, String phone, String type) {
         logger.info("向手机：{}发送类型：{}验证码", phone, type);
         //valid
-        validSendCodeArgs(phone, type);
+        validSendCodeArgs(request, token, phone, type);
         //get
         String code = getOneCode(4);
         //send
-//        sendSmsCode(phone, code);//TODO:
+        sendSmsCode(phone, code);//TODO:
         //record
         saveOneCode(phone, code, type);
     }
@@ -47,11 +51,16 @@ public class VerificationCodeService {
 
 
     public String getOneCode(double weishu) {
-        int random = (int) (Math.random() * Math.pow(10.0d, weishu));
-        return String.valueOf(random);
+        if (weishu == 4) {
+            return String.valueOf((new Random().nextInt(8999) + 1000));
+        } else if (weishu == 5) {
+            return String.valueOf((new Random().nextInt(89999) + 10000));
+        } else {
+            return String.valueOf((new Random().nextInt(899999) + 100000));
+        }
     }
 
-    private void validSendCodeArgs(String phone, String type) {
+    private void validSendCodeArgs(HttpServletRequest request, String token, String phone, String type) {
         //参数
         if (StringUtils.isEmpty(phone) || StringUtils.isEmpty(type))
             throw new CarException(ErrorCode.PARAM_ERROR);
@@ -65,6 +74,10 @@ public class VerificationCodeService {
         }
         if (!rightType)
             throw new CarException(ErrorCode.PARAM_ERROR);
+
+        //验证码发送凭据
+        verifySendTokenService.validSendToken(request, token);
+
         //发送频率
         Date endTime = DateUtil.getDayStart(new Date());
         Date startTime = DateUtil.addDay(endTime, 1);
@@ -103,10 +116,10 @@ public class VerificationCodeService {
 
         boolean valid = false;
         boolean check = false;
-        for (VerificationCode verificationCode : verificationCodes){
-            if (code.equals(verificationCode.getCode())){
+        for (VerificationCode verificationCode : verificationCodes) {
+            if (code.equals(verificationCode.getCode())) {
                 check = true;
-                if(new Date().before(DateUtil.addMinute(verificationCode.getCreateTime(), SMS_CODE_TIMEOUT))){
+                if (new Date().before(DateUtil.addMinute(verificationCode.getCreateTime(), SMS_CODE_TIMEOUT))) {
                     return true;
                 } else {
                     valid = false;
@@ -125,7 +138,7 @@ public class VerificationCodeService {
         List<VerificationCode> verificationCodes = verificationCodeRepository.findByPhoneAndTypeAndStatus(phone, vcEnum.getValue(), 0);
         if (verificationCodes == null) return;
 
-        for (VerificationCode verificationCode : verificationCodes){
+        for (VerificationCode verificationCode : verificationCodes) {
             verificationCode.setStatus(1);
         }
         verificationCodeRepository.saveAll(verificationCodes);

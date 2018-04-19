@@ -2600,9 +2600,7 @@ ul, li {
     font-size: 14px;
     padding: 6px 0;
 }
-.theme-white .tpl-login-logo {
-    background: url(../img/logo.jpg) center no-repeat;
-}
+
 .theme-white .sub-active {
     color: #23abf0!important;
 }
@@ -3182,4 +3180,9 @@ ul, li {
         top: 112px;
         right: 0;
     }
+}
+
+.login_vt_img {
+    border: 1px solid;
+    float: right;
 }

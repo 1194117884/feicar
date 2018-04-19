@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/sms")
 public class SmsApi {
@@ -23,9 +25,9 @@ public class SmsApi {
 
     @ResponseBody
     @PostMapping("/code")
-    public BaseResponse sendCode(String phone, String type) {
+    public BaseResponse sendCode(HttpServletRequest request, String token, String phone, String type) {
         try {
-            verificationCodeService.sendCode(phone, type);
+            verificationCodeService.sendCode(request, token, phone, type);
             return BaseResponse.success();
         } catch (CarException e) {
             logger.error("短信验证码", e);

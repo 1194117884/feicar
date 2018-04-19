@@ -81,6 +81,21 @@ public class UserServiceController {
     }
 
     @ResponseBody
+    @PostMapping("/ral")
+    public BaseResponse registerAndLogin(@RequestBody(required = false) LoginUserBody loginUserBody) {
+        try {
+            LoginInfo loginInfo = userService.registerAndLogin(loginUserBody);
+            return BaseResponse.success(loginInfo);
+        } catch (CarException e) {
+            logger.error("手机号登陆/注册 用户", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("手机号登陆/注册 用户", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+
+    @ResponseBody
     @PostMapping("/logout")
     public BaseResponse logout(HttpServletRequest request, @RequestBody(required = false) BaseRequest args) {
         try {

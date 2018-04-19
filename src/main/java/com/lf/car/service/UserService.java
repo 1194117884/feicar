@@ -46,8 +46,17 @@ public class UserService {
         User user = new User();
         user.setRegisterTime(new Date());
         user.setPhone(registerBody.getPhone());
-        user.setUsername(registerBody.getPhone());
-        user.setPassword(MD5Util.md5(registerBody.getPassword()));
+
+        switch (registerBody.getForm()) {
+            case "phone":
+                String phone = registerBody.getPhone();
+                user.setUsername(phone);//用户名字=手机号
+                user.setPassword(MD5Util.md5(MD5Util.md5(phone.substring(phone.length() - 6, phone.length()))));//手机号后六位
+                break;
+
+            default:
+
+        }
         user.setStatus(0);
 
         return user;
@@ -56,7 +65,7 @@ public class UserService {
     private void verifyRegisterArgs(RegisterUserBody registerBody) {
         if (registerBody == null || StringUtils.isEmpty(registerBody.getForm()))
             throw new CarException(ErrorCode.PARAM_ERROR);
-        switch (registerBody.getForm()){
+        switch (registerBody.getForm()) {
             case "phone":
                 if (StringUtils.isEmpty(registerBody.getPhone()) ||
                         StringUtils.isEmpty(registerBody.getPassword()) ||
@@ -74,7 +83,7 @@ public class UserService {
 
                 break;
             default:
-                    throw new CarException(ErrorCode.PARAM_ERROR);
+                throw new CarException(ErrorCode.PARAM_ERROR);
         }
 
 
@@ -103,7 +112,7 @@ public class UserService {
     }
 
     private User getLoginUser(LoginUserBody loginUserBody) {
-        switch (loginUserBody.getForm()){
+        switch (loginUserBody.getForm()) {
             case "phone":
                 if (StringUtils.isEmpty(loginUserBody.getPhone()) ||
                         StringUtils.isEmpty(loginUserBody.getCode()))
@@ -136,7 +145,7 @@ public class UserService {
         if (loginUserBody == null || StringUtils.isEmpty(loginUserBody.getForm()))
             throw new CarException(ErrorCode.PARAM_ERROR);
 
-        switch (loginUserBody.getForm()){
+        switch (loginUserBody.getForm()) {
             case "phone":
                 if (StringUtils.isEmpty(loginUserBody.getPhone()) ||
                         StringUtils.isEmpty(loginUserBody.getCode()))
@@ -158,5 +167,39 @@ public class UserService {
             throw new CarException(ErrorCode.PARAM_ERROR);
 
         return userRepository.findOneById(id);
+    }
+
+    public LoginInfo registerAndLogin(LoginUserBody loginUserBody) {
+        logger.info("使用手机登陆和注册一个用户:{}", JSONObject.toJSONString(loginUserBody));
+        if (loginUserBody == null)
+            throw new CarException(ErrorCode.PARAM_ERROR);
+        if (StringUtils.isEmpty(loginUserBody.getPhone()) ||
+                StringUtils.isEmpty(loginUserBody.getCode()))
+            throw new CarException(ErrorCode.PARAM_ERROR);
+
+        User user = userRepository.findByPhone(loginUserBody.getPhone());
+        if (user == null)
+            user = userRepository.findByUsername(loginUserBody.getPhone());
+
+        if (user == null) {
+            boolean check = verificationCodeService.verifyCode(loginUserBody.getPhone(), VerificationCodeEnum.USER_PHONE_LOGIN_AND_REGISTER, loginUserBody.getCode());
+            if (!check)
+                throw new CarException(ErrorCode.SMS_CODE_ERROR);
+            RegisterUserBody registerBody = new RegisterUserBody();
+            registerBody.setForm("phone");
+            registerBody.setCode(loginUserBody.getCode());
+            registerBody.setPhone(loginUserBody.getPhone());
+
+            user = userRepository.saveAndFlush(buildUser(registerBody));
+        } else {//登陆
+            boolean check = verificationCodeService.verifyCode(loginUserBody.getPhone(), VerificationCodeEnum.USER_PHONE_LOGIN_AND_REGISTER, loginUserBody.getCode());
+            if (!check)
+                throw new CarException(ErrorCode.SMS_CODE_ERROR);
+        }
+        //token
+        UserToken userToken = userTokenService.saveToken(user);
+
+        //return
+        return buildLoginInfo(user, userToken);
     }
 }

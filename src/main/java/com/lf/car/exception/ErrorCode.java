@@ -9,8 +9,9 @@ public enum ErrorCode {
     //sms
     SMS_PHONE_ERROR(1001, "请填写正确手机号！"),
     SMS_MAX_SEND_ERROR(1002, "短信发送次数过多！"),
-    SMS_CODE_TIMEOUT_ERROR(1003, "验证码失效！"),
-    SMS_CODE_ERROR(1004, "验证码错误！"),
+    SMS_CODE_TIMEOUT_ERROR(1003, "短信验证码失效！"),
+    SMS_CODE_ERROR(1004, "短信验证码错误！"),
+    SMS_TOKEN_ERROR(1005, "图片验证码错误！"),
 
     //admin
     ADMIN_LOGIN_TIMEOUT_ERROR(100001, "登陆超时，请重新登陆！"),

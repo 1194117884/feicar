@@ -2,7 +2,7 @@ package com.lf.car.controller.requs;
 
 public class RegisterUserBody extends BaseRequest {
 
-    private String form;//wechat=微信，phone=手机号
+    private String form;//wechat=微信，phone=手机号, username=用户名密码
 
     //wechat
     private String openId;
