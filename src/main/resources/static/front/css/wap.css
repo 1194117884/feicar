@@ -2468,20 +2468,18 @@ ul, li {
     background-color: #ececec;
     padding-left: 10px;
     line-height: 10px;
-    border-bottom: 1px solid #f0f0f0;
 }
 .grzx_list_title{
     margin: 0px;
-    border-top: 1px solid #f0f0f0;
 }
 .grzx_list_li{
     height: 45px;
     padding: 0 10px 0 10px;
     line-height: 45px;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 1px solid #ececec;
 }
 .grzx_list_li:hover{
-    background-color: #f0f0f0;
+    background-color: #ececec;
 }
 
 /*登陆页面*/
@@ -3214,29 +3212,30 @@ ul, li {
     background-color: #ececec;
     padding-left: 10px;
     line-height: 10px;
-    border-bottom: 1px solid #f0f0f0;
 }
 .ui_list_title{
     margin: 0px;
-    border-top: 1px solid #f0f0f0;
 }
 .ui_list_li{
     height: 45px;
     padding: 0 10px 0 10px;
     line-height: 45px;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 1px solid #ececec;
 }
+.ui_list_li:hover{
+    background-color: #ececec;
+}
+
 
 .ui_head_list_title{
     margin: 0px;
-    border-top: 1px solid #f0f0f0;
 }
 .ui_head_list_li{
     height: 80px;
     padding: 0 10px 0 10px;
     line-height: 80px;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 1px solid #ececec;
 }
 .ui_head_list_li:hover{
-    background-color: #f0f0f0;
+    background-color: #ececec;
 }

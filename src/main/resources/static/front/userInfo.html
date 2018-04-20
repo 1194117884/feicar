@@ -22,7 +22,26 @@
                             <div class="ui_divide"></div>
                             <ul class="ui_head_list_title">
                                 <li class="ui_head_list_li">
-                                    &nbsp;&nbsp;头像
+                                    <span>&nbsp;&nbsp;头像</span>
+                                    <div style="float: right; height: 100%; line-height: 100%;padding: 5px;">
+                                        <img src="img/a1.png" height="100%">
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="ui_divide"></div>
+                            <ul class="ui_list_title">
+                                <li class="ui_list_li">
+                                    <span>&nbsp;&nbsp;昵称</span>
+                                    <div class="iconfont" style="float: right">&#xe68b;</div>
+                                </li>
+                                <li class="ui_list_li">
+                                    <span>&nbsp;&nbsp;用户名</span>
+                                    <div class="iconfont" style="float: right">&#xe68b;</div>
+                                </li>
+                                <li class="ui_list_li">
+                                    <span>&nbsp;&nbsp;手机号</span>
                                     <div class="iconfont" style="float: right">&#xe68b;</div>
                                 </li>
                             </ul>
@@ -31,32 +50,11 @@
                             <div class="ui_divide"></div>
                             <ul class="ui_list_title">
                                 <li class="ui_list_li">
-                                    &nbsp;&nbsp;昵称
+                                    <span>&nbsp;&nbsp;生日</span>
                                     <div class="iconfont" style="float: right">&#xe68b;</div>
                                 </li>
                                 <li class="ui_list_li">
-                                    &nbsp;&nbsp;用户号
-                                    <div class="iconfont" style="float: right">&#xe68b;</div>
-                                </li>
-                                <li class="ui_list_li">
-                                    &nbsp;&nbsp;手机号
-                                    <div class="iconfont" style="float: right">&#xe68b;</div>
-                                </li>
-                                <li class="ui_list_li">
-                                    &nbsp;&nbsp;生日
-                                    <div class="iconfont" style="float: right">&#xe68b;</div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="ui_divide"></div>
-                            <ul class="ui_list_title">
-                                <li class="ui_list_li">
-                                    &nbsp;&nbsp;生日
-                                    <div class="iconfont" style="float: right">&#xe68b;</div>
-                                </li>
-                                <li class="ui_list_li">
-                                    &nbsp;&nbsp;地址
+                                    <span>&nbsp;&nbsp;地址</span>
                                     <div class="iconfont" style="float: right">&#xe68b;</div>
                                 </li>
                             </ul>
@@ -65,7 +63,25 @@
                     </ul>
                 </div>
             </div>
-        </div >
+        </div>
+
+
+        <!--编辑弹出层-->
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="edit-popup">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">
+
+                </div>
+                <div class="am-modal-bd">
+                    <input type="input" class="am-modal-prompt-input" placeholder="" maxlength="0">
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+                </div>
+            </div>
+        </div>
+        <!--编辑弹出层-->
 
     </div>
 
@@ -74,6 +90,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/amazeui.min.js"></script>
 <script src="js/user.js"></script>
+<script src="js/alert.js"></script>
 <script src="js/userInfo.js"></script>
 </body>
 </html>
