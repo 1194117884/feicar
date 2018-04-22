@@ -6,11 +6,13 @@ $(function () {
         auto_resize();
     });
 
-    //编辑点击
-    $('.ui_pet_grzx_list ul li ul li').on('click', function () {
-        showUpdate(this);
-    })
-
+    //头像点击
+    $('.li_head').on('click', function () {
+        editHeadPic();
+    });
+    $('#head_popup .am-modal-bd').on('click', function () {
+        $('#head_popup  input').click();
+    });
     //展示信息
     loadUserInfo();
 });
@@ -19,9 +21,58 @@ function auto_resize() {
     //TODO:
 }
 
+
+function editHeadPic() {
+    editModalPop($('#head_popup'), function (choose) {
+        if (choose == 'confirm') {
+            var _file = $('#head_popup  input')[0].files[0];
+            if (_file != undefined) {
+
+                $.qiniu.getUpToken(function (success, token) {
+                    if (success) {
+                        $.myLoading.load();
+                        // var observable = qiniu.upload(_file, _file.name, token, null, null);//放弃保存文件名形式
+                        var observable = qiniu.upload(
+                            _file,//file
+                            _file.name,//file name
+                            token,//upload token
+                            null,//
+                            null//
+                        ).subscribe({
+                            next: function (res) {
+                                console.log(JSON.stringify(res));
+                                $.myLoading.close();
+                            },
+                            error: function (err) {
+                                console.log(JSON.stringify(err));
+                                $.myLoading.close();
+                            },
+                            complete: function (res) {
+                                console.log(JSON.stringify(res));
+                                $.myLoading.close();
+
+                                $.qiniu.gePhotoUrl(res.key, function (status, data) {
+                                    if (status) {
+                                        updUserHeadPic(data);
+                                    } else {
+                                        $.myAlert.alert("获取文件地址错误！");
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        $.myAlert.alert("上传授权失败！");
+                    }
+                });
+            } else {
+                $.myAlert.alert("请先选择文件！");
+            }
+        }
+    });
+}
+
 function editModalPop(obj, callBack) {
-    $('#edit-popup').modal({
-        relatedTarget: obj,
+    $(obj).modal({
         onConfirm: function (e) {
             callBack('confirm');
         },
@@ -31,38 +82,48 @@ function editModalPop(obj, callBack) {
     });
 }
 
-
-function showUpdate(_li) {
-    editModalPop(_li, function (choose) {
-        if (choose == 'confirm') {
-            $.myAlert.alert("哈哈哈哈哈哈哈哈");
-        } else {
-
-        }
-    });
-}
-
-function updateUserInfo() {
-
+function updUserHeadPic(img) {
+    $('.li_head img').attr('src', img);
 }
 
 function loadUserInfo() {
-
     var user = getUserFromStorage();
-
     showUserInfo(user);
 
     try {
         refreshUserInfo();
     } catch (e) {
-
     }
 }
 
 function showUserInfo(user) {
     if (user == null || user == undefined) {//没登陆
-
+        $.myAlert.alert("登陆异常，请重新登陆");
+        window.location.href = 'userCenter.html';
     } else {
+        //头像
+        var _headPic = user.headPic;
+        if (_headPic != undefined && _headPic != '') {
+            $('.li_head div img').attr('src', _headPic);
+        }
+        //昵称
+        var _nickname = user.nickname;
+        if (_nickname != undefined && _nickname != '') {
+            $('.li_nickname div').text(_nickname);
+        }
+        //用户名
+        var _username = user.username;
+        if (_username != undefined && _username != '') {
+            $('.li_username div').text(_username);
+        }
+        //手机号
+        var _phone = user.phone;
+        if (_phone != undefined && _phone != '') {
+            $('.li_phone div').text(_phone);
+        }
+        //生日
+
+        //地址
 
     }
 }

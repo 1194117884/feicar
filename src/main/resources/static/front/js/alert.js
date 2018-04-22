@@ -16,16 +16,26 @@ $.extend({
                 console.log("append alert body~");
                 //append
                 var _alertHtml = '<div class="am-modal am-modal-alert" tabindex="-1" id="' + $.myAlert.constant.id + '">\n' +
-                    '            <div class="am-modal-dialog" style="border-radius: 100px;">\n' +
-                    '                <div class="am-modal-bd" style="padding: 0px; border: 0px;">' + _content + '</div>\n' +
-                    '            </div>\n' +
-                    '        </div>';
+                    '  <div class="am-modal-dialog">\n' +
+                    '    <div class="am-modal-bd">\n' +
+                    '    ' + _content + '\n' +
+                    '    </div>\n' +
+                    '    <div class="am-modal-footer" onclick="$.myAlert.close(this)">\n' +
+                    '      <span class="am-modal-btn">确定</span>\n' +
+                    '    </div>\n' +
+                    '  </div>\n' +
+                    '</div>';
                 $('body').append(_alertHtml);
             } else {
                 console.log("change alert info~");
-                var _innerHtml = '<div class="am-modal-dialog" style="border-radius: 100px;">\n' +
-                    '                <div class="am-modal-bd" style="padding: 0px; border: 0px;">' + _content + '</div>\n' +
-                    '            </div>\n';
+                var _innerHtml = ' <div class="am-modal-dialog">\n' +
+                    '    <div class="am-modal-bd">\n' +
+                    '    ' + _content + '\n' +
+                    '    </div>\n' +
+                    '    <div class="am-modal-footer" onclick="$.myAlert.close(this)">\n' +
+                    '      <span class="am-modal-btn">确定</span>\n' +
+                    '    </div>\n' +
+                    '  </div>\n';
                 $('#' + $.myAlert.constant.id).html(_innerHtml);
             }
             //alert
