@@ -35,6 +35,23 @@ function getUserFromNet(callBack) {
     })
 }
 
+function updUserInfo(user, callBack) {
+    $.ajax({
+        type: "put",
+        url: "/usc/info",
+        dataType: 'json',
+        contentType: 'application/json',
+        timeout: 10000,
+        data: JSON.parse(user),
+        error: function (error, status) {
+            callBack(false, null);
+        },
+        success: function (value, status) {
+            callBack(true, value);
+        }
+    })
+}
+
 
 function getFromCookie(name) {
     if (name == undefined || name == null || name == '')

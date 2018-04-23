@@ -51,6 +51,22 @@ public class UserServiceController {
     }
 
     @ResponseBody
+    @PutMapping("/info")
+    public BaseResponse updateUserInfo(HttpServletRequest request, @RequestBody(required = false) UpdateUserInfoArgs args) {
+        try {
+            User user = userTokenService.validToken(request);
+            userService.updateUserInfo(user.getId(), args);
+            return BaseResponse.success();
+        } catch (CarException e) {
+            logger.error("自己修改信息", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("自己修改信息", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+
+    @ResponseBody
     @PostMapping("/register")
     public BaseResponse register(@RequestBody(required = false) RegisterUserBody registerBody) {
         try {
@@ -125,6 +141,7 @@ public class UserServiceController {
             return BaseResponse.fail(ErrorCode.SYS_ERROR);
         }
     }
+
     @ResponseBody
     @PostMapping("/inquiry/list")
     public BaseResponse findInquiries(HttpServletRequest request, @RequestBody(required = false) FindInquiriesArgs args) {
@@ -140,5 +157,6 @@ public class UserServiceController {
             return BaseResponse.fail(ErrorCode.SYS_ERROR);
         }
     }
+
 
 }

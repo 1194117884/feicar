@@ -84,7 +84,24 @@ function editModalPop(obj, callBack) {
 
 function updUserHeadPic(img) {
     $('.li_head img').attr('src', img);
+    updateUserInfo({
+        headPic: img
+    });
 }
+
+
+function updUserHeadPic(user) {
+    $.myLoading.load();
+    updUserInfo(user, function (scceess, data) {
+        $.myLoading.close();
+        if (scceess) {
+            window.location.reload();
+        } else {
+            $.myAlert.alert("修改失败！");
+        }
+    });
+}
+
 
 function loadUserInfo() {
     var user = getUserFromStorage();

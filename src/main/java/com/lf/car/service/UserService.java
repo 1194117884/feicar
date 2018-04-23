@@ -3,6 +3,7 @@ package com.lf.car.service;
 import com.alibaba.fastjson.JSONObject;
 import com.lf.car.controller.requs.LoginUserBody;
 import com.lf.car.controller.requs.RegisterUserBody;
+import com.lf.car.controller.requs.UpdateUserInfoArgs;
 import com.lf.car.controller.resps.LoginInfo;
 import com.lf.car.entity.User;
 import com.lf.car.entity.UserToken;
@@ -207,5 +208,22 @@ public class UserService {
 
         //return
         return buildLoginInfo(user, userToken);
+    }
+
+    public void updateUserInfo(long id, UpdateUserInfoArgs args) {
+        if (args == null)
+            throw new CarException(ErrorCode.PARAM_ERROR);
+        User user = userRepository.findOneById(id);
+
+        if (!StringUtils.isEmpty(args.getAddress()))
+            user.setAddress(args.getAddress());
+        if (!StringUtils.isEmpty(args.getBirthday()))
+            user.setBirthday(DateUtil.parse(args.getBirthday()));
+        if (!StringUtils.isEmpty(args.getHeadPic()))
+            user.setHeadPic(args.getHeadPic());
+        if (!StringUtils.isEmpty(args.getNickname()))
+            user.setNickname(args.getNickname());
+
+        userRepository.saveAndFlush(user);
     }
 }
