@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class QiNiuProperty {
     String bucket;
     String domain;
-    String accesskey;
-    String secretkey;
+    String accessKey;
+    String secretKey;
 
     public String getBucket() {
         return bucket;
@@ -27,19 +27,19 @@ public class QiNiuProperty {
         this.domain = domain;
     }
 
-    public String getAccesskey() {
-        return accesskey;
+    public String getAccessKey() {
+        return accessKey;
     }
 
-    public void setAccesskey(String accesskey) {
-        this.accesskey = accesskey;
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
     }
 
-    public String getSecretkey() {
-        return secretkey;
+    public String getSecretKey() {
+        return secretKey;
     }
 
-    public void setSecretkey(String secretkey) {
-        this.secretkey = secretkey;
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 }

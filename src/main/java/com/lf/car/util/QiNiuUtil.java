@@ -15,7 +15,7 @@ public class QiNiuUtil {
     private QiNiuProperty qiNiuProperty;
 
     public String getUploadToken() {
-        Auth auth = Auth.create(qiNiuProperty.getAccesskey(), qiNiuProperty.getSecretkey());
+        Auth auth = Auth.create(qiNiuProperty.getAccessKey(), qiNiuProperty.getSecretKey());
         String uploadToken = auth.uploadToken(qiNiuProperty.getBucket());
         return uploadToken;
     }
