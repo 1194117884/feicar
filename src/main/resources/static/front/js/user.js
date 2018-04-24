@@ -42,7 +42,7 @@ function updUserInfo(user, callBack) {
         dataType: 'json',
         contentType: 'application/json',
         timeout: 10000,
-        data: JSON.parse(user),
+        data: JSON.stringify(user),
         error: function (error, status) {
             callBack(false, null);
         },
