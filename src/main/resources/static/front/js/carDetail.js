@@ -52,7 +52,7 @@ function goInquiry(id) {
 }
 
 function goReserve(id) {
-    window.location.href = 'reserve.html?' + id;
+    window.location.href = 'inquiry.html?' + id;
 }
 
 function getFeatureShowValue(modelInfo) {

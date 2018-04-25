@@ -31,7 +31,7 @@ $.extend({
         gePhotoUrl: function (key, callBack) {
             $.ajax({
                 type: "get",
-                url: $.qiniu.constant.photoUrl + '/' + key,
+                url: $.qiniu.constant.photoUrl + '?key=' + key,
                 dataType: 'json',
                 contentType: 'application/json',
                 timeout: 10000,

@@ -11,6 +11,7 @@ import com.lf.car.util.CookieUtil;
 import com.lf.car.util.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -55,7 +56,8 @@ public class UserTokenService {
         if (user.getStatus() == -1)
             throw new CarException(ErrorCode.USER_FREEZE_ERROR);
 
-        User user1 = user;
+        User user1 = new User();
+        BeanUtils.copyProperties(user, user1);
         user1.setPassword("(  ૢ⁼̴̤̆ ㉨ ⁼̴̤̆ ૢ)♡ 约吗？");
         return user1;
     }
@@ -81,7 +83,7 @@ public class UserTokenService {
         logger.info("用户登陆保存token：{}", JSONObject.toJSONString(user));
         if (user == null) return null;
         UserToken userToken = userTokenRepository.findByUserIdAndType(user.getId(), LOGIN_TOKEN_TYPE);
-        if (userToken == null){
+        if (userToken == null) {
             userToken = new UserToken();
             userToken.setUserId(user.getId());
             userToken.setToken(TokenUtil.getLoginToken());
@@ -101,7 +103,7 @@ public class UserTokenService {
             throw new CarException(ErrorCode.PARAM_ERROR);
         //获取token
         String token = getTokenFromCookie(request);
-        if (!StringUtils.isEmpty(token)){
+        if (!StringUtils.isEmpty(token)) {
             userTokenRepository.deleteByToken(token);
         }
     }

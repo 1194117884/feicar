@@ -15,6 +15,7 @@ import com.lf.car.util.MD5Util;
 import com.lf.car.util.VerificationCodeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -41,7 +42,10 @@ public class UserService {
 
         User user = buildUser(registerBody);
 
-        User user1 = userRepository.saveAndFlush(user);
+        userRepository.saveAndFlush(user);
+
+        User user1 = new User();
+        BeanUtils.copyProperties(user, user1);
         user1.setPassword("(  ૢ⁼̴̤̆ ㉨ ⁼̴̤̆ ૢ)♡ 约吗？");
         return user1;
     }
@@ -110,10 +114,12 @@ public class UserService {
     private LoginInfo buildLoginInfo(User user, UserToken userToken) {
         if (user == null || userToken == null)
             throw new CarException(ErrorCode.USER_LOGIN_ERROR);
+        User user1 = new User();
+        BeanUtils.copyProperties(user, user1);
+        user1.setPassword("(  ૢ⁼̴̤̆ ㉨ ⁼̴̤̆ ૢ)♡ 约吗？");
 
         LoginInfo loginInfo = new LoginInfo();
-        user.setPassword("(  ૢ⁼̴̤̆ ㉨ ⁼̴̤̆ ૢ)♡ 约吗？");
-        loginInfo.setUser(user);
+        loginInfo.setUser(user1);
         loginInfo.setUserToken(userToken);
         return loginInfo;
     }
@@ -218,7 +224,7 @@ public class UserService {
         if (!StringUtils.isEmpty(args.getAddress()))
             user.setAddress(args.getAddress());
         if (!StringUtils.isEmpty(args.getBirthday()))
-            user.setBirthday(DateUtil.parse(args.getBirthday()));
+            user.setBirthday(DateUtil.parse("yyyy-MM-dd", args.getBirthday()));
         if (!StringUtils.isEmpty(args.getHeadPic()))
             user.setHeadPic(args.getHeadPic());
         if (!StringUtils.isEmpty(args.getNickname()))

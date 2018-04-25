@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="stylesheet" href="css/amazeui.min.css">
+    <link rel="stylesheet" href="css/wap.css">
+    <title>试驾-定州荣威</title>
+</head>
+<body style="background:#ececec">
+<div class="pet_mian">
+
+    <div class="cr_content pet_topci" style="display: none; padding: 10px;">
+        <!--列表-->
+        <form class="am-form am-form-horizontal">
+            <fieldset>
+                <legend style="border-bottom: 1px solid #dd514c;">试驾信息填写</legend>
+                <div class="am-form-group am-form-success am-form-icon am-form-feedback">
+                    <label for="doc-ipt-5-a" class="am-u-sm-4 am-form-label">试驾车系</label>
+                    <div class="am-dropdown am-u-sm-8" data-am-dropdown>
+                        <button id="doc-ipt-5-a" class="am-btn am-btn-success am-dropdown-toggle" data-am-dropdown-toggle>下拉列表 <span class="am-icon-caret-down"></span></button>
+                        <ul class="am-dropdown-content">
+                            <li class="am-dropdown-header">标题</li>
+                            <li><a href="#">快乐的方式不只一种</a></li>
+                            <li class="am-active"><a href="#">最荣幸是</a></li>
+                            <li><a href="#">谁都是造物者的光荣</a></li>
+                            <li class="am-disabled"><a href="#">就站在光明的角落</a></li>
+                            <li class="am-divider"></li>
+                            <li><a href="#">天空海阔 要做最坚强的泡沫</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="am-form-group am-form-success am-form-icon am-form-feedback">
+                    <label for="doc-ipt-6-a" class="am-u-sm-4 am-form-label">试驾车型</label>
+                    <div class="am-dropdown am-u-sm-8" data-am-dropdown>
+                        <button id="doc-ipt-6-a" class="am-btn am-btn-success am-dropdown-toggle" data-am-dropdown-toggle>下拉列表 <span class="am-icon-caret-down"></span></button>
+                        <ul class="am-dropdown-content">
+                            <li class="am-dropdown-header">标题</li>
+                            <li><a href="#">快乐的方式不只一种</a></li>
+                            <li class="am-active"><a href="#">最荣幸是</a></li>
+                            <li><a href="#">谁都是造物者的光荣</a></li>
+                            <li class="am-disabled"><p>就站在光明的角落就站在光明的角落就站在光明的角落</p></li>
+                            <li class="am-divider"></li>
+                            <li><a href="#">天空海阔 要做最坚强的泡沫</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="am-form-group am-form-success am-form-icon am-form-feedback">
+                    <label for="doc-ipt-1-a" class="am-u-sm-4 am-form-label">试驾日期</label>
+                    <div class="am-u-sm-8">
+                        <input type="text" id="doc-ipt-1-a"  class="am-form-field" placeholder="试驾预约日期" data-am-datepicker readonly required />
+                    </div>
+                </div>
+
+                <div class="am-form-group am-form-success am-form-icon am-form-feedback">
+                    <label for="doc-ipt-3-a" class="am-u-sm-4 am-form-label">您的姓名</label>
+                    <div class="am-u-sm-8">
+                        <input type="email" id="doc-ipt-3-a" class="am-form-field" placeholder="输入您的姓名">
+                    </div>
+                </div>
+                <div class="am-form-group am-form-success am-form-icon am-form-feedback">
+                    <label for="doc-ipt-4-a" class="am-u-sm-4 am-form-label">您的手机</label>
+                    <div class="am-u-sm-8">
+                        <input type="email" id="doc-ipt-4-a" class="am-form-field" placeholder="输入您的手机">
+                    </div>
+                </div>
+                <div class="am-form-group am-form-success am-form-icon am-form-feedback">
+                    <label for="doc-ipt-2-a" class="am-u-sm-4 am-form-label">附属留言</label>
+                    <div class="am-u-sm-8">
+                        <textarea class="am-form-file" rows="5" id="doc-ipt-2-a"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="am-btn am-btn-success am-btn-block">免费试驾</button>
+            </fieldset>
+        </form>
+        <!--列表-->
+    </div>
+
+    <!--loading-->
+    <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">正在载入...</div>
+            <div class="am-modal-bd">
+                <span class="am-icon-spinner am-icon-spin"></span>
+            </div>
+        </div>
+    </div>
+    <!--loading-->
+
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/amazeui.min.js"></script>
+<script src="js/reserve.js"></script>
+</body>
+</html>

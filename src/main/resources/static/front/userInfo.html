@@ -38,11 +38,11 @@
                                 </li>
                                 <li class="ui_list_li li_username">
                                     <span>&nbsp;&nbsp;用户名</span>
-                                    <div style="float: right"></div>
+                                    <div style="float: right; color: gray;"></div>
                                 </li>
                                 <li class="ui_list_li li_phone">
                                     <span>&nbsp;&nbsp;手机号</span>
-                                    <div style="float: right"></div>
+                                    <div style="float: right; color: gray;"></div>
                                 </li>
                             </ul>
                         </li>
@@ -62,6 +62,13 @@
 
                     </ul>
                 </div>
+
+                <div class="ui_divide"></div>
+                <div style="text-align: center;padding: 10px;">
+                    <button type="button" class="am-btn am-btn-danger nr_logout" style="width: 80%;">
+                        退出登陆
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -72,7 +79,7 @@
             <div class="am-modal-dialog ">
                 <input type="file" style="display: none">
                 <div class="am-modal-bd">
-                    <img src="img/no_login.png">
+                    <img src="img/no_login.png" width="100%" height="100%">
                 </div>
 
                 <div class="am-modal-footer">
@@ -86,12 +93,12 @@
         <!--昵称-->
         <div class="am-modal am-modal-prompt" tabindex="-1" id="nickname_popup">
             <div class="am-modal-dialog">
-                <div class="am-modal-hd">
+                <div class="am-modal-hd"></div>
 
-                </div>
                 <div class="am-modal-bd">
-                    <input type="input" class="am-modal-prompt-input" placeholder="" value="" maxlength="0">
+                    <input class="am-modal-prompt-input" placeholder="" value="" maxlength="0">
                 </div>
+
                 <div class="am-modal-footer">
                     <span class="am-modal-btn" data-am-modal-cancel>取消</span>
                     <span class="am-modal-btn " data-am-modal-confirm>保存</span>
@@ -100,6 +107,26 @@
         </div>
         <!--昵称-->
 
+        <!--生日-->
+
+        <div class="am-modal am-modal-prompt" tabindex="-1" id="birthday_popup">
+            <div class="am-modal-dialog">
+                <div class="am-modal-hd">生日</div>
+
+                <div class="am-modal-bd">
+                    <input class="am-form-field am-datepicker-date"
+                           data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}"
+                           placeholder="" value="" readonly>
+                </div>
+
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                    <span class="am-modal-btn " data-am-modal-confirm>保存</span>
+                </div>
+            </div>
+        </div>
+
+        <!--生日-->
 
         <!--编辑弹出层-->
 
@@ -113,7 +140,7 @@
 <script src="js/alert.js"></script>
 <script src="js/loading.js"></script>
 <script src="js/qiniu.js"></script>
-<script src="https://unpkg.com/qiniu-js@2.2.2/dist/qiniu.min.js"></script>
+<script src="js/qiniu.min.js"></script>
 <script src="js/userInfo.js"></script>
 </body>
 </html>
