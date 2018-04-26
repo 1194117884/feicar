@@ -2,6 +2,7 @@ package com.lf.car.controller.requs;
 
 public class UpdateUserInfoArgs extends BaseRequest {
 
+    private String name;
     private String nickname;
     private String headPic;
     private String address;
@@ -37,5 +38,13 @@ public class UpdateUserInfoArgs extends BaseRequest {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -24,6 +24,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -56,13 +57,14 @@ public class InquiryPriceRecordService {
         if (phone.length() != 11 || !phone.startsWith("1"))
             throw new CarException(ErrorCode.SMS_PHONE_ERROR);
         record.setStatus(0);
+        record.setCreateTime(new Date());
 
     }
 
 
     public List<InquiryPriceRecord> findUserInquiryRecords(long userId, FindInquiriesArgs args) {
         logger.info("查询用户：{}的询问记录", userId);
-        if (userId <= 0 )
+        if (userId <= 0)
             throw new CarException(ErrorCode.PARAM_ERROR);
 
         int pageSize = args.getPageSize() <= 0 ? 20 : args.getPageSize();
@@ -83,13 +85,13 @@ public class InquiryPriceRecordService {
         List<InquiryPriceRecord> content = page.getContent();
         //添加车型车系
         appendModelAndSeries(content);
-        return  content;
+        return content;
     }
 
     private void appendModelAndSeries(List<InquiryPriceRecord> list) {
-        if(list != null && list.size() < 1) return;
+        if (list != null && list.size() < 1) return;
 
-        for (InquiryPriceRecord record : list){
+        for (InquiryPriceRecord record : list) {
             CarModel carModel = carModelRepository.findOneById(record.getModelId());
             if (carModel == null) continue;
             CarSeries carSeries = carSeriesRepository.findOneById(record.getSeriesId());

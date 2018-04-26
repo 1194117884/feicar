@@ -11,7 +11,6 @@
     <title>试驾-定州荣威</title>
 </head>
 <body style="background:#ececec;font-size: 14px !important">
-<body style="background:#ececec;font-size: 14px !important">
 <style>
     body, html {
         height: 100%;
@@ -44,97 +43,56 @@
 <div class="pet_mian">
 
     <div class="cr_content pet_topci" style="display: block; padding: 9px;">
-        <!--列表-->
-        <!-- <form class="am-form">
-            <fieldset>
-              <div class="am-form-group">
-                <label for="doc-select-1">试选车系</label>
-                <select id="doc-select-1">
-                  <option value="option1">选项一...</option>
-                  <option value="option2">选项二.....</option>
-                  <option value="option3">选项三........</option>
-                </select>
-                <span class="am-form-caret"></span>
-              </div>
-              <div class="am-form-group">
-                    <label for="doc-select-1">试选车系</label>
-                    <select id="doc-select-1">
-                        <option value="option1">选项一...</option>
-                        <option value="option2">选项二.....</option>
-                        <option value="option3">选项三........</option>
-                    </select>
-                <span class="am-form-caret"></span>
-              </div>
-              <div class="am-form-group">
-                <label for="doc-ipt-1-a" class="doc-select-1">试驾日期</label>
-                <div class="lyk-time">
-                    <input type="text" id="doc-ipt-1-a"  class="am-form-field" placeholder="试驾预约日期" data-am-datepicker readonly required />
-                </div>
-              </div>
-              <div class="am-form-group">
-                    <label for="doc-ipt-email-1">您的姓名</label>
-                    <input type="text" class="" id="doc-ipt-email-1" placeholder="请输入姓名">
-              </div>
-              <div class="am-form-group">
-                    <label for="doc-ipt-email-1">您的电话</label>
-                    <input type="text" class="" id="doc-ipt-email-1" placeholder="请输入姓名">
-              </div>
-              <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
-            </fieldset>
-          </form> -->
-        <!--列表-->
-        <span><a style="margin-left: 80%">试驾记录</a></span>
+
+        <span><a style="margin-left: 80%" href="reserveList.html">试驾记录</a></span>
+        <br>
         <form class="am-form am-form-horizontal">
             <div class="am-form-group">
-                <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">选择车系</label>
+                <label class="am-u-sm-3 am-form-label">选择车系</label>
                 <div class="am-u-sm-9">
-                    <select id="doc-select-1">
-                        <option value="option1">选项一...</option>
-                        <option value="option2">选项二.....</option>
-                        <option value="option3">选项三........</option>
+                    <select id="doc-select-series">
+                        <option value="0">选择车系</option>
                     </select>
                 </div>
             </div>
 
             <div class="am-form-group">
-                <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">选择车型</label>
+                <label class="am-u-sm-3 am-form-label">选择车型</label>
                 <div class="am-u-sm-9">
-                    <select id="doc-select-1">
-                        <option value="option1">选项一...</option>
-                        <option value="option2">选项二.....</option>
-                        <option value="option3">选项三........</option>
+                    <select id="doc-select-models">
+                        <option value="0">选择车型</option>
                     </select>
                 </div>
             </div>
 
             <div class="am-form-group">
-                <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">试驾日期</label>
+                <label class="am-u-sm-3 am-form-label">试驾日期</label>
                 <div class="am-u-sm-9">
-                    <input type="text" id="doc-ipt-3" placeholder="试驾预约日期" style="background-color: #fff"
+                    <input type="text" id="doc-ipt-date" placeholder="试驾预约日期" style="background-color: #fff"
                            data-am-datepicker readonly required/>
                 </div>
             </div>
 
             <div class="am-form-group">
-                <label for="doc-ipt-3" class="am-u-sm-3 am-form-label">您的姓名</label>
+                <label class="am-u-sm-3 am-form-label">您的姓名</label>
                 <div class="am-u-sm-9">
-                    <input type="text" id="doc-ipt-3" placeholder="请输入姓名">
+                    <input type="text" id="doc-ipt-name" placeholder="请输入姓名" maxlength="20">
                 </div>
             </div>
 
             <div class="am-form-group">
-                <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label">您的密码</label>
+                <label class="am-u-sm-3 am-form-label">您的手机号</label>
                 <div class="am-u-sm-9">
-                    <input type="text" id="doc-ipt-pwd-2" placeholder="请输入手机号">
+                    <input type="number" id="doc-ipt-phone" placeholder="请输入手机号">
                 </div>
             </div>
             <div class="am-form-group">
-                <textarea class="" rows="5" id="doc-ta-1" placeholder="请输入附言"></textarea>
+                <textarea rows="5" id="doc-ta-desc" placeholder="请输入附言" maxlength="100"></textarea>
             </div>
 
             <div class="am-form-group am-form-submit">
                 <div class="am-u-sm-offset-4">
-                    <button style="width: 40% !important;border-radius: 6px;" type="submit"
+                    <button style="width: 40%;" type="button" id="sub-btn"
                             class="am-btn am-btn-default">提交
                     </button>
                 </div>
@@ -142,20 +100,12 @@
         </form>
     </div>
 
-    <!--loading-->
-    <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="my-modal-loading">
-        <div class="am-modal-dialog">
-            <div class="am-modal-hd">正在载入...</div>
-            <div class="am-modal-bd">
-                <span class="am-icon-spinner am-icon-spin"></span>
-            </div>
-        </div>
-    </div>
-    <!--loading-->
-
 </div>
 <script src="js/jquery.min.js"></script>
 <script src="js/amazeui.min.js"></script>
+<script src="js/alert.js"></script>
+<script src="js/loading.js"></script>
+<script src="js/user.js"></script>
 <script src="js/reserve.js"></script>
 </body>
 </html>

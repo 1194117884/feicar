@@ -8,14 +8,14 @@
 $.extend({
     myLoading: {
         constant: {
-            id: 'my_jq_alert_id'
+            id: 'my_jq_loading_id'
         },
         load: function (_content) {
-            var alertObj = $('body #' + $.myAlert.constant.id).text();
-            if (alertObj == undefined || alertObj == "") {
-                console.log("append alert body~");
+            var loadingObj = $('body #' + $.myLoading.constant.id).text();
+            if (loadingObj == undefined || loadingObj == "") {
+                console.log("append loading body~");
                 //append
-                var _alertHtml = ' <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="' + $.myLoading.constant.id + '">\n' +
+                var _loadingHtml = ' <div class="am-modal am-modal-loading am-modal-no-btn" tabindex="-1" id="' + $.myLoading.constant.id + '">\n' +
                     '        <div class="am-modal-dialog">\n' +
                     '            <div class="am-modal-hd">正在载入...</div>\n' +
                     '            <div class="am-modal-bd">\n' +
@@ -23,13 +23,13 @@ $.extend({
                     '            </div>\n' +
                     '        </div>\n' +
                     '    </div>';
-                $('body').append(_alertHtml);
+                $('body').append(_loadingHtml);
             }
             //loading
-            $('#' + $.myAlert.constant.id).modal();
+            $('#' + $.myLoading.constant.id).modal();
         },
         close: function (_obj) {
-            $('#' + $.myAlert.constant.id).modal('close');
+            $('#' + $.myLoading.constant.id).modal('close');
         }
     }
 })

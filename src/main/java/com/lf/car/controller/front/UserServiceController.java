@@ -143,6 +143,30 @@ public class UserServiceController {
     }
 
     @ResponseBody
+    @PostMapping("/reserve")
+    public BaseResponse reserve(HttpServletRequest request, @RequestBody(required = false) ReserveDriveRecord args) {
+        try {
+            User user = null;
+            try {
+                user = userTokenService.validToken(request);
+                if (user != null) {
+                    args.setUserId(user.getId());
+                }
+            } catch (Exception e) {
+                logger.info("用户未登录进行预约试驾");
+            }
+            reserveDriveRecordService.reserveOneDrive(args);
+            return BaseResponse.success();
+        } catch (CarException e) {
+            logger.error("用户预约一次试驾", e);
+            return BaseResponse.fail(e.getErrorCode());
+        } catch (Exception e) {
+            logger.error("用户预约一次试驾", e);
+            return BaseResponse.fail(ErrorCode.SYS_ERROR);
+        }
+    }
+
+    @ResponseBody
     @PostMapping("/inquiry/list")
     public BaseResponse findInquiries(HttpServletRequest request, @RequestBody(required = false) FindInquiriesArgs args) {
         try {

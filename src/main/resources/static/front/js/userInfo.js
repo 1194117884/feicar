@@ -39,6 +39,10 @@ $(function () {
     $('.li_nickname').on('click', function () {
         editNickname();
     });
+    //姓名点击
+    $('.li_name').on('click', function () {
+        editName();
+    });
     //生日点击
     $('.li_birthday').on('click', function () {
         editBirthday();
@@ -164,6 +168,32 @@ function editNickname() {
 }
 
 
+function editName() {
+    var $namePop = $('#nickname_popup');
+
+    var oldName = $('.li_name div').text();
+
+    //默认展示
+    $($namePop.find('.am-modal-hd')[0]).text("姓名");
+
+    $namePop.find('input').attr("placeholder", oldName);
+    $namePop.find('input').attr("value", oldName);
+    $namePop.find('input').attr("maxlength", 20);
+
+
+    editModalPop($namePop, function (choose) {
+        if (choose == 'confirm') {
+            var newName = $namePop.find('input').val();
+            if (newName == "" || newName == undefined) {
+
+            } else {
+                updUserName(newName);
+            }
+        }
+    });
+}
+
+
 function editHeadPic() {
     editModalPop($('#head_popup'), function (choose) {
         if (choose == 'confirm') {
@@ -261,6 +291,16 @@ function updUserNickname(nickname) {
     });
 }
 
+function updUserName(name) {
+    if (name == undefined || name == '') return;
+
+    $('.li_nickname div').text(name);
+
+    updUser({
+        name: name
+    });
+}
+
 
 function updUser(user) {
     $.myLoading.load();
@@ -299,6 +339,11 @@ function showUserInfo(user) {
         var _nickname = user.nickname;
         if (_nickname != undefined && _nickname != '') {
             $('.li_nickname div').text(_nickname);
+        }
+        //姓名
+        var _name = user.name;
+        if (_name != undefined && _name != '') {
+            $('.li_name div').text(_name);
         }
         //用户名
         var _username = user.username;

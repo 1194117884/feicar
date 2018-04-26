@@ -18,6 +18,8 @@ public class User {
     private String password;
     @Column(columnDefinition = "varchar(11) comment '手机号'")
     private String phone;
+    @Column(columnDefinition = "varchar(50) comment '姓名'")
+    private String name;
     @Column(columnDefinition = "varchar(50) comment '昵称'")
     private String nickname;
     @Column(columnDefinition = "varchar(225) comment '头像'")
@@ -109,5 +111,13 @@ public class User {
 
     public void setHeadPic(String headPic) {
         this.headPic = headPic;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -221,6 +221,8 @@ public class UserService {
             throw new CarException(ErrorCode.PARAM_ERROR);
         User user = userRepository.findOneById(id);
 
+        if (!StringUtils.isEmpty(args.getName()))
+            user.setName(args.getName());
         if (!StringUtils.isEmpty(args.getAddress()))
             user.setAddress(args.getAddress());
         if (!StringUtils.isEmpty(args.getBirthday()))
