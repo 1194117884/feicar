@@ -199,36 +199,59 @@ function editHeadPic() {
         if (choose == 'confirm') {
             var _file = $('#head_popup  input')[0].files[0];
             if (_file != undefined) {
-                var obServer = {
-                    next: function (res) {
-                        $.myLoading.close();
-                    },
-                    error: function (err) {
-                        $.myLoading.close();
-                    },
-                    complete: function (res) {
-                        $.myLoading.close();
+                // var obServer = {
+                //     next: function (res) {
+                //         $.myLoading.close();
+                //     },
+                //     error: function (err) {
+                //         $.myLoading.close();
+                //     },
+                //     complete: function (res) {
+                //         $.myLoading.close();
 
-                        $.qiniu.gePhotoUrl(res.key, function (status, data) {
-                            if (status) {
-                                updUserHeadPic(data);
-                            } else {
-                                $.myAlert.alert("获取文件地址错误！");
-                            }
-                        });
-                    }
-                };
+                //         $.qiniu.gePhotoUrl(res.key, function (status, data) {
+                //             if (status) {
+                //                 console.log(data,111)
+                //                 alert(1)
+                //                 updUserHeadPic(data);
+                //             } else {
+                //                 $.myAlert.alert("获取文件地址错误！");
+                //             }
+                //         });
+                //     }
+                // };
 
                 $.qiniu.getUpToken(function (success, token) {
                     if (success) {
                         $.myLoading.load();
-                        var subscription = qiniu.upload(
-                            _file,//file
-                            _file.name,//file name
-                            token,//upload token
-                            null,//
-                            null//
-                        ).subscribe(obServer);
+                        // var subscription = qiniu.upload(
+                        //     _file,//file
+                        //     _file.name,//file name
+                        //     token,//upload token
+                        //     null,//
+                        //     null//
+                        // ).subscribe(obServer);
+                        var Qiniu_UploadUrl = "http://up-z1.qiniup.com";  
+                        var xhr = new XMLHttpRequest();  
+                        xhr.open('POST', Qiniu_UploadUrl, true);  
+                        var formData= new FormData();  
+                        var key = _file.name
+                        if (key !== null && key !== undefined){  
+                            formData.append('key',key);  
+                        }  
+                        formData.append('token', token);  
+                        formData.append('file', _file);  
+                        xhr.onreadystatechange = function(response) {  
+                            if (xhr.readyState == 4 && xhr.status == 200&& xhr.responseText != "") {  
+                                var blkRet = JSON.parse(xhr.responseText);  
+                                console.log(blkRet,22222222222222)  
+                                updUserHeadPic('http://lf.datangleiyinsi.com/'+ blkRet.key);
+                            } else if (xhr.status != 200 && xhr.responseText) {  
+                                console.log("服务传输异常!!");  
+                            }  
+                        };  
+                        xhr.send(formData);
+                        
                     } else {
                         $.myAlert.alert("上传授权失败！");
                     }
@@ -237,6 +260,7 @@ function editHeadPic() {
                 $.myAlert.alert("请先选择文件！");
             }
         }
+        
     });
 }
 
@@ -307,7 +331,8 @@ function updUser(user) {
     updUserInfo(user, function (scceess, data) {
         $.myLoading.close();
         if (scceess) {
-            window.location.reload();
+            // window.location.reload();
+            window.location.href = 'userCenter.html';
         } else {
             $.myAlert.alert("修改失败！");
         }
