@@ -251,7 +251,6 @@ function editHeadPic() {
                             }  
                         };  
                         xhr.send(formData);
-                        
                     } else {
                         $.myAlert.alert("上传授权失败！");
                     }

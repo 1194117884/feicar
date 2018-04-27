@@ -19,9 +19,9 @@ $(function () {
     $('#doc-select-models').on('change', function () {
         var modeId = $(this).val();
     })
-    //提交预约
+    //提交询价
     $('#sub-btn').on('click', function () {
-        reserve();
+        inquiry();
     })
 
 
@@ -139,23 +139,17 @@ function loadUserInfo() {
     }
 }
 
-function reserve() {
+function inquiry() {
     //车系
     var seriesId = $('#doc-select-series').val();
     if (seriesId <= 0) {
-        $.myAlert.alert("请选择试驾车系！");
+        $.myAlert.alert("请选择询问车系！");
         return;
     }
     //车型
     var modelId = $('#doc-select-models').val();
     if (modelId <= 0) {
-        $.myAlert.alert("请选择试驾车型！");
-        return;
-    }
-    //日期
-    var date = $('#doc-ipt-date').val();
-    if (date == undefined || date == '') {
-        $.myAlert.alert("请选择试驾日期！");
+        $.myAlert.alert("请选择询问车型！");
         return;
     }
     //姓名
@@ -176,7 +170,7 @@ function reserve() {
     $.myLoading.load();
     $.ajax({
         type: "post",
-        url: "/bsc/reserve",
+        url: "/bsc/inquiry",
         dataType: 'json',
         contentType: 'application/json',
         timeout: 10000,
@@ -185,7 +179,6 @@ function reserve() {
             modelId: modelId,
             userName: name,
             userPhone: phone,
-            reserveTime: date,
             message: desc
         }),
         error: function (error, status) {
@@ -194,13 +187,11 @@ function reserve() {
         success: function (dd, status) {
             $.myLoading.close();
             if (dd.code == 0) {
-                $.myAlert.alert("恭喜，成功预约试驾！");
-
+                $.myAlert.alert("恭喜，请等待询价结果！");
 
                 $('#doc-select-series').val(0);
                 $('#doc-select-models').val(0);
 
-                $('#doc-ipt-date').val('');
                 $('#doc-ipt-name').val('');
                 $('#doc-ipt-phone').val('');
                 $('#doc-ta-desc').val('');

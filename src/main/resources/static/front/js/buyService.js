@@ -49,7 +49,8 @@ function goNextPage(type) {
 
 
 function goto(href) {
-    window.location.href = href;
+    var _aftStr = new Date().getTime();
+    window.location.href = href + '?i=' + _aftStr;
 }
 
 

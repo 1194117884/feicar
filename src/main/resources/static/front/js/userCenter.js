@@ -18,10 +18,6 @@ $(function () {
     $('.nr_login').on('click', function () {
         go('nr_login');
     })
-    //登录
-    $('.nr_no_login').on('click', function () {
-        go('nr_no_login');
-    })
 
     //个人信息
     $('.my_info').on('click', function () {
@@ -106,7 +102,8 @@ function login() {
 }
 
 function goto(href) {
-    window.location.href = href;
+    var _aftStr = new Date().getTime();
+    window.location.href = href + '?i=' + _aftStr;
 }
 
 
@@ -121,9 +118,6 @@ function go(flag) {
     switch (flag) {
         case 'nr_login':
             _href = 'userInfo.html';
-            break;
-        case 'nr_no_login':
-            _href = 'login.html';
             break;
         case 'my_info':
             _href = 'userInfo.html';
@@ -169,15 +163,14 @@ function go(flag) {
 
 function showUserInfo(user) {
     if (user == null || user == undefined || user == "") {//没登陆
-        $('.nr_login').hide();
-        $('.nr_no_login').show();
+
+        $('.nr_login img').attr('src','./img/no_login.png');
+        $('.nr_login .pet_grzx_name').text('点击登录');
+        $('.nr_login .pet_grzx_map').text('');
     } else {
         $('.nr_login img').attr('src', (user.headPic != '' && user.headPic != null) ? user.headPic : './img/no_login.png');
         $('.nr_login .pet_grzx_name').text(user.nickname);
         $('.nr_login .pet_grzx_map').text(user.phone);
-
-        $('.nr_no_login').hide();
-        $('.nr_login').show();
     }
 }
 
