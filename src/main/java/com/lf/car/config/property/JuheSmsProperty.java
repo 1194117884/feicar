@@ -9,7 +9,7 @@ public class JuheSmsProperty {
     private String url;
     private String key;
     private String tpl_id;
-    private String 	dtype;
+    private String dtype;
 
     public String getUrl() {
         return url;
