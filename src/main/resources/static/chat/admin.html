@@ -39,13 +39,26 @@
         var adminName = "admin";
         var consumeName = "用户187423";
 
-        $('#title').text(adminName);
+        $('#title').text(consumeName);
 
         $.lc.init(function (success) {
             if (success) {
                 $.lc.rtc.session.create(function (obj) {
-                    $.lc.rtc.client.create(consumeName, function (obj) {
+                    $.lc.rtc.client.create(adminName, function (obj) {
                         console.log('client registe');
+                        if ($.lc.rtc.conversation.body.id == undefined) {
+
+                            $.lc.rtc.conversation.create({
+                                'objectId': '5afd50429f5454004671db19',
+                                'name': consumeName,
+                                'members': [consumeName]
+                            }, function () {
+                                console.log('build conversation')
+
+
+                            });
+                        }
+
                         $.lc.rtc.conversation.receive(function (msg, conversation) {
                             receive(msg);
                         })

@@ -11,8 +11,14 @@ public class LeanCloudProperty {
     private String appKey;
     private String masterKey;
     private String region;
-
+    //debug模式
     private Boolean debug;
+    //restful api
+    private String createConversationsUrl;
+    private String findConversationsUrl;
+    private String sendMessageUrl;
+    private String queryMessageUrl;
+
 
     public String getAppId() {
         return appId;
@@ -52,5 +58,37 @@ public class LeanCloudProperty {
 
     public void setDebug(Boolean debug) {
         this.debug = debug;
+    }
+
+    public String getCreateConversationsUrl() {
+        return createConversationsUrl;
+    }
+
+    public void setCreateConversationsUrl(String createConversationsUrl) {
+        this.createConversationsUrl = createConversationsUrl;
+    }
+
+    public String getFindConversationsUrl() {
+        return findConversationsUrl;
+    }
+
+    public void setFindConversationsUrl(String findConversationsUrl) {
+        this.findConversationsUrl = findConversationsUrl;
+    }
+
+    public String getSendMessageUrl() {
+        return sendMessageUrl;
+    }
+
+    public void setSendMessageUrl(String sendMessageUrl) {
+        this.sendMessageUrl = sendMessageUrl;
+    }
+
+    public String getQueryMessageUrl() {
+        return queryMessageUrl;
+    }
+
+    public void setQueryMessageUrl(String queryMessageUrl) {
+        this.queryMessageUrl = queryMessageUrl;
     }
 }
