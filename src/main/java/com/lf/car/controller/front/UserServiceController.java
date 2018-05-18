@@ -2,7 +2,7 @@ package com.lf.car.controller.front;
 
 import com.lf.car.controller.requs.*;
 import com.lf.car.controller.resps.BaseResponse;
-import com.lf.car.controller.resps.LoginInfo;
+import com.lf.car.controller.resps.UserLoginInfo;
 import com.lf.car.entity.InquiryPriceRecord;
 import com.lf.car.entity.ReserveDriveRecord;
 import com.lf.car.entity.User;
@@ -85,8 +85,8 @@ public class UserServiceController {
     @PostMapping("/login")
     public BaseResponse login(@RequestBody(required = false) LoginUserBody loginUserBody) {
         try {
-            LoginInfo loginInfo = userService.login(loginUserBody);
-            return BaseResponse.success(loginInfo);
+            UserLoginInfo userLoginInfo = userService.login(loginUserBody);
+            return BaseResponse.success(userLoginInfo);
         } catch (CarException e) {
             logger.error("登陆用户", e);
             return BaseResponse.fail(e.getErrorCode());
@@ -100,8 +100,8 @@ public class UserServiceController {
     @PostMapping("/ral")
     public BaseResponse registerAndLogin(@RequestBody(required = false) LoginUserBody loginUserBody) {
         try {
-            LoginInfo loginInfo = userService.registerAndLogin(loginUserBody);
-            return BaseResponse.success(loginInfo);
+            UserLoginInfo userLoginInfo = userService.registerAndLogin(loginUserBody);
+            return BaseResponse.success(userLoginInfo);
         } catch (CarException e) {
             logger.error("手机号登陆/注册 用户", e);
             return BaseResponse.fail(e.getErrorCode());

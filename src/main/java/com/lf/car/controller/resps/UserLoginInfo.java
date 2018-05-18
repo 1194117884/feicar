@@ -3,7 +3,7 @@ package com.lf.car.controller.resps;
 import com.lf.car.entity.User;
 import com.lf.car.entity.UserToken;
 
-public class LoginInfo {
+public class UserLoginInfo {
 
     private User user;
     private UserToken userToken;

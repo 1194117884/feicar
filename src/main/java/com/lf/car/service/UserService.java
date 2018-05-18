@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.lf.car.controller.requs.LoginUserBody;
 import com.lf.car.controller.requs.RegisterUserBody;
 import com.lf.car.controller.requs.UpdateUserInfoArgs;
-import com.lf.car.controller.resps.LoginInfo;
+import com.lf.car.controller.resps.UserLoginInfo;
 import com.lf.car.entity.User;
 import com.lf.car.entity.UserToken;
 import com.lf.car.exception.CarException;
@@ -99,7 +99,7 @@ public class UserService {
 
     }
 
-    public LoginInfo login(LoginUserBody loginUserBody) {
+    public UserLoginInfo login(LoginUserBody loginUserBody) {
         logger.info("登陆一个用户：{}", JSONObject.toJSONString(loginUserBody));
 
         verifyLoginArgs(loginUserBody);
@@ -111,17 +111,17 @@ public class UserService {
         return buildLoginInfo(user, userToken);
     }
 
-    private LoginInfo buildLoginInfo(User user, UserToken userToken) {
+    private UserLoginInfo buildLoginInfo(User user, UserToken userToken) {
         if (user == null || userToken == null)
             throw new CarException(ErrorCode.USER_LOGIN_ERROR);
         User user1 = new User();
         BeanUtils.copyProperties(user, user1);
         user1.setPassword("(  ૢ⁼̴̤̆ ㉨ ⁼̴̤̆ ૢ)♡ 约吗？");
 
-        LoginInfo loginInfo = new LoginInfo();
-        loginInfo.setUser(user1);
-        loginInfo.setUserToken(userToken);
-        return loginInfo;
+        UserLoginInfo userLoginInfo = new UserLoginInfo();
+        userLoginInfo.setUser(user1);
+        userLoginInfo.setUserToken(userToken);
+        return userLoginInfo;
     }
 
     private User getLoginUser(LoginUserBody loginUserBody) {
@@ -182,7 +182,7 @@ public class UserService {
         return userRepository.findOneById(id);
     }
 
-    public LoginInfo registerAndLogin(LoginUserBody loginUserBody) {
+    public UserLoginInfo registerAndLogin(LoginUserBody loginUserBody) {
         logger.info("使用手机登陆和注册一个用户:{}", JSONObject.toJSONString(loginUserBody));
         if (loginUserBody == null)
             throw new CarException(ErrorCode.PARAM_ERROR);
