@@ -10,7 +10,6 @@ $.extend({
             config: {}
         },
         init: function (_callBack) {
-            console.log("init");
             $.ajax({
                 type: "get",
                 url: $.lc.constant.server,
@@ -31,7 +30,6 @@ $.extend({
             session: {
                 body: {},
                 create: function (_callBack) {
-                    console.log("create");
                     var session = new AV.Realtime({
                         appId: $.lc.constant.config.appId,
                         appKey: $.lc.constant.config.appKey,
@@ -41,7 +39,6 @@ $.extend({
                     _callBack(session);
                 },
                 close: function () {
-                    console.log("close");
                     $.lc.rtc.client.body.close();
                 },
             },
@@ -56,52 +53,42 @@ $.extend({
                     );
                 },
                 close: function () {
-                    console.log("close");
                     $.lc.rtc.client.body.close();
                 },
             },
             conversation: {
-                body: {},
                 create: function (_data, _callBack) {
-                    var _conversationId = $.lc.rtc.conversation.body.id == undefined ? '' : $.lc.rtc.conversation.body.id;
-                    if (localStorage.getItem('_conversationId') != null)
-                        _conversationId = localStorage.getItem('_conversationId');
-
-                    $.lc.rtc.client.body.getConversation(_conversationId).then(function (conversation) {
-                        if (conversation == null) {
-                            $.lc.rtc.client.body.createConversation(_data).then(function (newConversation) {
-                                $.lc.rtc.conversation.body = newConversation;
-                                localStorage.setItem('_conversationId', newConversation.id);
-                                _callBack(newConversation);
-                            });
-                        } else {
-                            $.lc.rtc.conversation.body = conversation;
-                            localStorage.setItem('_conversationId', conversation.id);
-                            _callBack(conversation);
-                        }
+                    $.lc.rtc.client.body.createConversation(_data).then(function (newConversation) {
+                        _callBack(newConversation);
                     });
-
-
                 },
+                get: function (_conversationId, _callBack) {
+                    $.lc.rtc.client.body.getConversation(_conversationId).then(function (conversation) {
+                        _callBack(conversation);
+                    });
+                },
+                query: function (_callBack) {
+                    $.lc.rtc.client.body.getQuery()
+                        .containsMembers([$.lc.rtc.client.body.clientId]).find().then(function (conversations) {
+                        _callBack(conversations);
+                    });
+                }
+            },
+            message: {
                 find: function () {
-                    console.log("msg find");
 
                 },
                 receive: function (_callBack) {
-                    console.log("msg receive");
                     $.lc.rtc.client.body.on("message", function (msg, _conversation) {
-                        $.lc.rtc.conversation.body = _conversation;
-                        localStorage.setItem('_conversationId', _conversation.id);
                         _callBack(msg, _conversation);
                     });
                 },
-                send: function (_msg, _callBack) {
-                    console.log("msg send");
-                    $.lc.rtc.conversation.body.send(new AV.TextMessage(_msg)).then(
-                        function (messeage) {
-                            _callBack(messeage);
-                        }
-                    );
+                send: function (_conversionId, _msg, _callBack) {
+                    $.lc.rtc.conversation.get(_conversionId, function (conversation) {
+                        conversation.send(new AV.TextMessage(_msg)).then(function (message) {
+                            _callBack(message);
+                        });
+                    });
                 }
             }
         }
