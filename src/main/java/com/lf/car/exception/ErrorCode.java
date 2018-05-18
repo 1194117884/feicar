@@ -17,6 +17,8 @@ public enum ErrorCode {
     ADMIN_LOGIN_TIMEOUT_ERROR(100001, "登陆超时，请重新登陆！"),
     ADMIN_FREEZE_ERROR(100002, "管理员已被冻结，无法登陆！"),
     ADMIN_NO_AUTH_ERROR(100003, "没有此权限!"),
+    ADMIN_NOT_EXISTS(100004, "账户不存在！"),
+    ADMIN_PASSWORD_ERROR(100005, "登录密码错误！"),
 
     //user
     USER_REGISTER_PHONE_EXISTS_ERROR(200005, "手机号已被占用！"),

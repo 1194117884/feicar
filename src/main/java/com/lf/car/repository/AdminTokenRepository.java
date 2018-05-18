@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface AdminTokenRepository extends JpaRepository<AdminToken, Long> {
 
     AdminToken findByTokenAndType(String token, String type);
+
+    AdminToken findByAdminIdAndType(Long adminId, String type);
 }

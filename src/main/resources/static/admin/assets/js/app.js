@@ -34,7 +34,7 @@ var pageData = {
     // ===============================================
     // 首页
     // ===============================================
-    'index': function indexData() {
+    'all': function indexData() {
         $('#example-r').DataTable({
 
             bInfo: false, //页脚信息
@@ -45,7 +45,6 @@ var pageData = {
         // ==========================
         // 百度图表A http://echarts.baidu.com/
         // ==========================
-
         var echartsA = echarts.init(document.getElementById('tpl-echarts'));
         option = {
             tooltip: {

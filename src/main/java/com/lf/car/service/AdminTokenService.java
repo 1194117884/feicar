@@ -1,11 +1,13 @@
 package com.lf.car.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lf.car.entity.*;
 import com.lf.car.exception.CarException;
 import com.lf.car.exception.ErrorCode;
 import com.lf.car.repository.*;
 import com.lf.car.util.CookieUtil;
 import com.lf.car.util.DateUtil;
+import com.lf.car.util.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,23 @@ public class AdminTokenService {
         return admin;
     }
 
+    public AdminToken saveAdminToken(Admin admin) {
+        logger.info("管理员登陆保存token：{}", JSONObject.toJSONString(admin));
+        if (admin == null) return null;
+        AdminToken adminToken = adminTokenRepository.findByAdminIdAndType(admin.getId(), LOGIN_TOKEN_TYPE);
+        if (adminToken == null) {
+            adminToken = new AdminToken();
+            adminToken.setAdminId(admin.getId());
+            adminToken.setToken(TokenUtil.getLoginToken());
+            adminToken.setType(LOGIN_TOKEN_TYPE);
+            adminToken.setCreateTime(new Date());
+        } else {
+            adminToken.setToken(TokenUtil.getLoginToken());
+            adminToken.setCreateTime(new Date());
+        }
+        return adminTokenRepository.saveAndFlush(adminToken);
+    }
+
     private boolean isContainsMethod(List<Method> methodList, String path) {
         if (methodList == null || methodList.size() < 1) return false;
         for (Method method : methodList) {
@@ -79,10 +98,10 @@ public class AdminTokenService {
 
         List<Long> list = new ArrayList<>();
         for (Menu menu : menuList) {
-                Long lid = menu.getId();
-                if (list.contains(lid)) continue;
+            Long lid = menu.getId();
+            if (list.contains(lid)) continue;
 
-                list.add(lid);
+            list.add(lid);
         }
 
         List<Method> methodList = methodRepository.findByStatusAndMenuIdIn(0, list);
