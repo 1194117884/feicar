@@ -1,0 +1,10 @@
+server:
+  port: 80
+spring:
+  application:
+    name: feicar
+  cloud:
+    config:
+      uri: http://mccs:8888
+      label: master
+      profile: dev
