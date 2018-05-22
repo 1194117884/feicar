@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>我的名片</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="assets/css/swiper.min.css">
+    <link rel="stylesheet" href="assets/css/amazeui.min.css">
+
+    <!-- Demo styles -->
+    <style>
+        html, body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<!-- Swiper -->
+<div class="swiper-container swiper-container-horizontal swiper-container-ios">
+    <div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+        <!--个人简介-->
+        <div class="swiper-slide swiper-slide-active" style="width: 320px;">
+
+        </div>
+
+        <!--公司简介-->
+        <div class="swiper-slide swiper-slide-next" style="width: 320px;">
+            Slide 2
+        </div>
+
+        <!--热门车型-->
+        <div class="swiper-slide" style="width: 320px;">
+            Slide 3
+        </div>
+    </div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-disabled="false"></div>
+    <div class="swiper-button-prev swiper-button-disabled" tabindex="0" role="button" aria-label="Previous slide"
+         aria-disabled="true"></div>
+    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+
+<!-- Swiper JS -->
+<script src="assets/js/swiper.min.js"></script>
+<script src="assets/js/amazeui.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+
+
+</body>
+</html>
