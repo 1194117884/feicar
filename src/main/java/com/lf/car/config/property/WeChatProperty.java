@@ -14,6 +14,8 @@ public class WeChatProperty {
 
     //对接
     private String accessTokenUrl;
+    //jsapi_ticket
+    private String jsapiTicketUrl;
     //菜单管理
     private String menuGetUrl;
     private String menuCreateUrl;
@@ -81,5 +83,13 @@ public class WeChatProperty {
 
     public void setMenuDeleteUrl(String menuDeleteUrl) {
         this.menuDeleteUrl = menuDeleteUrl;
+    }
+
+    public String getJsapiTicketUrl() {
+        return jsapiTicketUrl;
+    }
+
+    public void setJsapiTicketUrl(String jsapiTicketUrl) {
+        this.jsapiTicketUrl = jsapiTicketUrl;
     }
 }

@@ -27,7 +27,7 @@ public class WeChatAccessTokenService {
 
     public WeChatAccessToken getAccessToken() {
         logger.info("获取wechat访问的accessToken");
-        WeChatAccessToken accessToken = weChatAccessTokenRepository.findLastByOrderByIdAsc();
+        WeChatAccessToken accessToken = weChatAccessTokenRepository.findFirstByOrderByIdDesc();
         if (accessToken == null || accessToken.getExpiresTime().before(new Date())) {
             accessToken = findNewAccessToken();
         }

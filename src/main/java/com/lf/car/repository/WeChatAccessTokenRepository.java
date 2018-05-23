@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface WeChatAccessTokenRepository extends JpaRepository<WeChatAccessToken, Long> {
 
-    WeChatAccessToken findLastByOrderByIdAsc();
+    WeChatAccessToken findFirstByOrderByIdDesc();
 
 }

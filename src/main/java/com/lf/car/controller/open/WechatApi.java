@@ -2,10 +2,12 @@ package com.lf.car.controller.open;
 
 import com.lf.car.controller.resps.BaseResponse;
 import com.lf.car.service.WeChatAccessTokenService;
+import com.lf.car.service.WeChatJsSdkService;
 import com.lf.car.util.WeChatSignatureUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,8 @@ public class WechatApi {
 
     private static Logger logger = LoggerFactory.getLogger(WechatApi.class);
 
+    @Autowired
+    private WeChatJsSdkService weChatJsSdkService;
     @Autowired
     private WeChatSignatureUtil weChatSignatureUtil;
     @Autowired
@@ -35,6 +39,12 @@ public class WechatApi {
     public BaseResponse getAccessToken() {
         logger.info("获取微信accessToken");
         return BaseResponse.success(weChatAccessTokenService.getAccessToken().getAccess_token());
+    }
+
+    @GetMapping(value = "/jssdk_config")
+    public BaseResponse getJssdkConfig(@Param("url") String url) {
+        logger.info("获取微信jssdk_config");
+        return BaseResponse.success(weChatJsSdkService.getSignNature(url));
     }
 
 }
