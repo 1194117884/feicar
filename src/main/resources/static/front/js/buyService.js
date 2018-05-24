@@ -18,7 +18,7 @@ $(function () {
     $('.pet_bottom_nav_list li[type="' + thisPage + '"]').click();
 
     //初始化jsapi
-    initWechatSdk();
+    // initWechatSdk();
 
     //首页轮播s
     getHotImg();
